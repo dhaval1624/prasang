@@ -1,0 +1,11 @@
+import './css/animate.css';
+import './css/bootstrap.min.css';
+import './css/line-awesome.css';
+import './css/line-awesome-font-awesome.min.css';
+import './vendor/fontawesome-free/css/all.min.css';
+import './css/font-awesome.min.css';
+import './css/jquery.mCustomScrollbar.min.css';
+import './lib/slick/slick.css';
+import './lib/slick/slick-theme.css';
+import './css/style.css';
+import './css/responsive.css';
