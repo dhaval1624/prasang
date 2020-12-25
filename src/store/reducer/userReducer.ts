@@ -1,4 +1,4 @@
-import {IUsers} from './types';
+import {IUsers} from './stateTypes';
 import * as types from '../actionTypes';
 
 export let initialState: IUsers = {

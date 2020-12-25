@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import userReducer from './reducer/userReducer';
 import authReducer from './reducer/authReducer';
-import {IUsers,IAuth} from "./reducer/types";
+import {IUsers,IAuth} from "./reducer/stateTypes";
 
 declare global {
     interface Window {

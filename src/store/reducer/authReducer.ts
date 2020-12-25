@@ -1,4 +1,4 @@
-import {IAuth} from './types';
+import {IAuth} from './stateTypes';
 import * as types from '../actionTypes';
 
 export let initialState: IAuth = {
