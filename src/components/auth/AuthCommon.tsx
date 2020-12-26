@@ -1,5 +1,5 @@
-import Main from '../../containers/images/cm-logo.png';
-import Img from '../../containers/images/cm-main-img.png';
+import Main from '../../assets/images/cm-logo.png';
+import Img from '../../assets/images/cm-main-img.png';
 import { Link } from 'react-router-dom';
 
 interface AuthCommonProps {

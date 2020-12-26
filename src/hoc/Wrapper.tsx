@@ -9,11 +9,12 @@ import * as ActionTypes from '../store/actionTypes'
 interface WrapperProp {
     children: any
     goToLogin: () => void
+    goToHome: () => void
 }
 
 const Wrapper = (props: WrapperProp) => {
     const dispatch = useDispatch();
-    const [ getUser, { data, loading } ] = useLazyQuery(userProfile);
+    const [ getUser, { data, loading, error } ] = useLazyQuery(userProfile);
 
     useEffect(()=> {
         try {
@@ -26,12 +27,24 @@ const Wrapper = (props: WrapperProp) => {
                     user:data.usersProfile,
                     token: token
                 });
+            } else if(error) {
+                if(error.networkError){
+                    dispatch({
+                        type: ActionTypes.USER_LOGIN_FAILED,
+                        error: error.networkError
+                    });
+                    props.goToHome();
+                    console.log("goes to network");
+                } else {
+                    console.log("goes to login");
+                    props.goToLogin();
+                }
             }
-        } catch (error) {
+        } catch (err) {
             console.log("token not found error");
             props.goToLogin();
         }
-    }, [ loading, data ])
+    }, [ loading, data, error ])
 
     return props.children
 }

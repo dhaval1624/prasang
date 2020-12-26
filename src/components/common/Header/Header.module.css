@@ -1,0 +1,8 @@
+.faHeaderIcon {
+    display: block;
+    margin: 0px auto;
+    color: white;
+}
+.faHeaderIcon:hover {
+    cursor: pointer;
+}

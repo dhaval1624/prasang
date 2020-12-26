@@ -1,0 +1,15 @@
+.card {
+    display: flex;
+    flex-direction:row;
+    padding: '3px';
+    border-bottom: 1px solid gainsboro;
+}
+.text {
+    margin: 4px 3px 5px 9px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+}

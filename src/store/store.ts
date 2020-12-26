@@ -1,5 +1,4 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore, combineReducers, compose } from 'redux';
 import userReducer from './reducer/userReducer';
 import authReducer from './reducer/authReducer';
 import {IUsers,IAuth} from "./reducer/stateTypes";
@@ -18,7 +17,6 @@ export interface IRootState {
 const store =createStore(combineReducers({
     user:userReducer,
     auth:authReducer,
-}),
-composeEnhancers(applyMiddleware(thunk)))
+}), composeEnhancers());
 
 export default store;

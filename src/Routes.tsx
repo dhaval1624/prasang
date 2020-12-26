@@ -16,7 +16,7 @@ const Routes = (props:any) => {
     if(props.location.pathname.startsWith("/u")) {
         routes = (
             <Switch>
-                <Wrapper goToLogin={() => props.history.replace("/login")} >
+                <Wrapper goToLogin={() => props.history.replace("/login")} goToHome={ () => props.history.replace("/") } >
                     <Route path="/u/home" exact component={Home} />
                     {/* <Route path="/u/home" /> */}
                 </Wrapper>
