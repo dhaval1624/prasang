@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import { useLazyQuery } from '@apollo/client';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { checkAutoAuth } from '../store/actions/AuthActions'
 import { userProfile } from '../utils/GqlQueries'
-import * as ActionTypes from '../store/actionTypes'
+import AuthSlice from '../store/slices/AuthSlice';
+import { store } from "../store/storeTypes";
 
 interface WrapperProp {
     children: any
@@ -13,38 +14,40 @@ interface WrapperProp {
 }
 
 const Wrapper = (props: WrapperProp) => {
-    const dispatch = useDispatch();
     const [ getUser, { data, loading, error } ] = useLazyQuery(userProfile);
+    const { goToHome, goToLogin } = props;
+    const dispatch = useDispatch();
+    const { login } = AuthSlice.actions;
+    let storeToken = useSelector( (state:store) => state.auth.token);
 
     useEffect(()=> {
         try {
-            let token = checkAutoAuth();
-            getUser();
-            if(!loading && data) 
-            {
-                dispatch({
-                    type:ActionTypes.PRASANG_USER_LOGIN_SUCCESS,
-                    user:data.usersProfile,
-                    token: token
-                });
-            } else if(error) {
-                if(error.networkError){
-                    dispatch({
-                        type: ActionTypes.USER_LOGIN_FAILED,
-                        error: error.networkError
-                    });
-                    props.goToHome();
-                    console.log("goes to network");
-                } else {
-                    console.log("goes to login");
-                    props.goToLogin();
+            if(!storeToken) {
+                let token = checkAutoAuth();
+                getUser();
+                if(!loading && data) 
+                {
+                    dispatch(
+                        login({
+                            token: token,
+                            user: data.usersProfile
+                        })
+                    )
+                } else if(error) {
+                    if(error.networkError){
+                        goToHome();
+                        console.log("goes to network");
+                    } else {
+                        console.log("goes to login");
+                        goToLogin();
+                    }
                 }
             }
         } catch (err) {
             console.log("token not found error");
-            props.goToLogin();
+            goToLogin();
         }
-    }, [ loading, data, error ])
+    }, [ getUser, dispatch, goToLogin, goToHome, login, loading, data, error, storeToken ])
 
     return props.children
 }
