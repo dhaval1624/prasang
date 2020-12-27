@@ -28,6 +28,7 @@ const Wrapper = (props: WrapperProp) => {
                     token: token
                 });
             } else if(error) {
+                console.log(error);
                 if(error.networkError){
                     dispatch({
                         type: ActionTypes.USER_LOGIN_FAILED,
@@ -42,6 +43,7 @@ const Wrapper = (props: WrapperProp) => {
             }
         } catch (err) {
             console.log("token not found error");
+            console.log(err)
             props.goToLogin();
         }
     }, [ loading, data, error ])

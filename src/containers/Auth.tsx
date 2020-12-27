@@ -27,7 +27,7 @@ const Auth = (props: any) => {
                 token: response.data.login.token
             })
             setToken(response.data.login.token);
-            props.history.push("/user/home");  
+            props.history.push("/u/home");  
         } catch (error) {
             dispatch({
                 type: types.USER_LOGIN_FAILED,
@@ -46,7 +46,7 @@ const Auth = (props: any) => {
             dispatch({
                 type:types.USER_REGISTER_SUCCESS
             })
-            props.history.push("/user/login");  
+            props.history.push("/login");  
         } catch (error) {
             console.log(error.message);
             dispatch({

@@ -4,7 +4,8 @@ export const Login_User = gql`
   mutation login($email:String!,$password:String!){
     login(data:{
             email:$email,
-            password:$password
+            password:$password,
+            role:"User"
           }){
       token
       user {
@@ -39,9 +40,22 @@ query {
     password
     name
     email
-    contactNo
     IsEnable
     createdAt
   }
+}
+`
+
+export const editProfile = gql`
+mutation editProfile($name: String, $email: String, $password: String, $username: String, $contactNo: String, $image: Upload){
+  editProfile(data: {name: $name, email: $email, password: $password, username: $username, contactNo: $contactNo, image: $image})
+}{
+  username
+  userId
+  password
+  name
+  email
+  IsEnable
+  createdAt
 }
 `

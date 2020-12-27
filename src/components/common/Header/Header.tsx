@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { faHome, faCalendarAlt, faUserCircle, faUserCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classes from './Header.module.css'
@@ -32,7 +33,9 @@ const Header = (props: any) => {
 					</nav>
 					<div className="user-account">
 						<div className="user-info">
-							<FontAwesomeIcon icon={faUserCog} className={classes.faHeaderIcon} size="2x" />
+							<Link to={"/u/profile"}>
+								<FontAwesomeIcon icon={faUserCog} className={classes.faHeaderIcon} size="2x" ></FontAwesomeIcon>
+							</Link>
 						</div>
 					</div>
 				</div>

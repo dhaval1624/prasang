@@ -16,7 +16,7 @@ import Categories from '../components/home/EventsCategories/Categories';
 const Home = (props: any) => {
 	return (
 		<>
-			<Header />
+			{/* <Header /> */}
 			<div className="wrapper">
 				<main>
 					<div className="main-section">

@@ -1,9 +1,10 @@
-import { Redirect, Route, Switch } from "react-router"
+import { Route, Switch } from "react-router"
 import Auth from "./containers/Auth"
 import Home from "./containers/Home"
+import Profile from './containers/Profile';
 import Landing from "./containers/Landing"
 import Wrapper from "./hoc/Wrapper"
-
+import Header from './components/common/Header/Header';
 const Routes = (props:any) => {
     let routes = (
         <Switch>
@@ -14,13 +15,18 @@ const Routes = (props:any) => {
         </Switch>
     )
     if(props.location.pathname.startsWith("/u")) {
-        routes = (
+        routes = 
+        (
+            <>
+            <Header/>
             <Switch>
                 <Wrapper goToLogin={() => props.history.replace("/login")} goToHome={ () => props.history.replace("/") } >
                     <Route path="/u/home" exact component={Home} />
+                    <Route path="/u/profile" exact component={Profile} />
                     {/* <Route path="/u/home" /> */}
                 </Wrapper>
             </Switch>
+            </>
         )
     }
     return routes
