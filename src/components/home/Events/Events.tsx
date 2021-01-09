@@ -1,12 +1,88 @@
-import React from 'react'
+import React from "react";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Image } from 'react-bootstrap';
+import { Image } from "react-bootstrap";
 
-import commonClasses from '../common.module.css'
-import classes from './Events.module.css'
+import commonClasses from "../common.module.css";
+import classes from "./Events.module.css";
+import { useQuery } from "@apollo/client";
+import { homePageEvents } from "../../../utils/GqlQueries";
+import { event } from "./../../../store/storeTypes";
+enum EventStatusEnum {
+    Ongoing = "Ongoing",
+    Ended = "Ended",
+    Upcoming = "Upcoming",
+    All = "All",
+}
+interface eventsResult {
+    events: [event];
+}
+interface eventQueryVars {
+    status: EventStatusEnum;
+    categoryId?: string;
+    paid?: boolean;
+}
+
+const renderEvents = (events: [event]) => {
+    return events.map((event) => (
+        <div className={classes.card} key={event.eventId}>
+            <Image
+                src={event.imageUrl}
+                rounded
+                className={classes.image}
+                fluid
+            />
+            <div className={classes.categoryTitle}>
+                <h2>{event.title}</h2>
+                <p>
+                    In <b>{event.category.name}</b>
+                </p>
+            </div>
+        </div>
+    ));
+};
+const renderDummyEvents = (stripeClasses: string[]) => {
+    return Array(5)
+        .fill(0)
+        .map((_, index) => (
+            <div className={classes.card} key={index}>
+                <div className={classes.imageBox}>
+                    <div
+                        className={[
+                            commonClasses.stripe,
+                            commonClasses.stripeImage,
+                        ].join(" ")}
+                    />
+                </div>
+                <div className={classes.categoryTitle}>
+                    <h2
+                        className={[
+                            ...stripeClasses,
+                            commonClasses.stripeMedium,
+                        ].join(" ")}
+                    ></h2>
+                    <p
+                        className={[
+                            ...stripeClasses,
+                            commonClasses.stripeLong,
+                        ].join(" ")}
+                    ></p>
+                </div>
+            </div>
+        ));
+};
 
 const Events = () => {
+    const { loading, error, data } = useQuery<eventsResult, eventQueryVars>(
+        homePageEvents,
+        {
+            variables: {
+                status: EventStatusEnum.Ongoing,
+            },
+        }
+    );
+    let stripeClasses: string[] = [commonClasses.stripe, commonClasses.left];
+    console.log(data, loading);
     return (
         <div className={commonClasses.wrapper}>
             <div className={commonClasses.heading}>
@@ -14,16 +90,14 @@ const Events = () => {
                 <h3>Tranding Events</h3>
             </div>
             <div className={commonClasses.list}>
-                <div className={classes.card}>
-                    <Image src="http://res.cloudinary.com/dkuoqamig/image/upload/v1608540988/cijp0mjygb6zand2pjdj.jpg" rounded className={classes.image} />
-                    <div className={classes.categoryTitle}>
-                        <h2>Senior Product Designer</h2>
-                        <p>In <b>Traditional</b></p>
-                    </div>
-                </div>
+                {loading
+                    ? renderDummyEvents(stripeClasses)
+                    : data?.events
+                    ? renderEvents(data?.events)
+                    : { error }}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Events
+export default Events;

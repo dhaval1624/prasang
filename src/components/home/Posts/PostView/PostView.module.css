@@ -1,0 +1,190 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0000007a;
+}
+.postBox {
+    width: 80%;
+    margin: 0 auto;
+    position: fixed;
+    top: 10%;
+    left: 10%;
+}
+.post {
+    float: left;
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+}
+.close {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+}
+/* Sidebar Top */
+.postTopBar {
+    float: left;
+    width: 100%;
+    height: 11%;
+    padding: 0px 0px 5px 0px;
+    border-bottom: 0.5px solid #bcbcbc;
+    display: flex;
+}
+.postTopbarUser {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-content: center;
+    margin-top: 3px;
+    padding: 3px 4px;
+    width: 80%;
+}
+.postTopbarUser img {
+    border-radius: 100px;
+    margin-top: 2px;
+}
+.userName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+.userName h3 {
+    color: #000;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-top: 2px;
+}
+.userName span {
+    color: #b2b2b2;
+    font-size: 14px;
+}
+.likeComments {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 5px;
+    margin-top: 3px;
+}
+.likeComments span:hover {
+    cursor: pointer;
+}
+/* End of Sidebar Top */
+
+/* Sidebar Content */
+.postContent {
+    width: 100%;
+    height: 82%;
+    max-height: 550px;
+    padding: 5px 4px;
+}
+.comments {
+    height: 540px;
+    overflow: auto;
+}
+.commentBox {
+    display: table;
+    width: 100%;
+}
+.comment {
+    display: table-cell;
+    /* vertical-align: top; */
+    width: 100%;
+    padding: 4px 5px;
+    border-bottom: 0.5px solid #b7b7b7;
+}
+.comment h3 {
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.comment span {
+    color: rgb(178, 178, 178);
+    font-size: 15px;
+    display: inline-block;
+    /* margin-bottom: 7px; */
+}
+.comment p {
+    color: black;
+    font-size: 15px;
+    /* margin-bottom: 10px; */
+    line-height: 14px;
+}
+
+/* End of Sidebar Content */
+
+/* Sidebar Bottom */
+.postBottomBar {
+    /* top: 95%;
+    position: absolute; */
+    height: 10%;
+    width: 93%;
+    /* border-top: 0.5px solid #bcbcbc; */
+    float: left;
+    padding: 6px 0px 5px 0px;
+}
+.like {
+    margin-right: 10px;
+}
+.cmBox {
+    display: flex;
+}
+.cmInput {
+    border: 1px solid #bfbfbf;
+    background-color: #efefef;
+    color: #b2b2b2;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 40px;
+    flex-grow: 2;
+    height: 35px;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    padding: 3px 5px;
+    color: black;
+}
+.cmButton {
+    /* height: 35px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    flex-grow: 1;
+    float: right; */
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background-color: #e44d3a;
+    border: 0;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    padding: 3px 5px;
+}
+
+/* End of Sidebar Bottom */
+
+/* .wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 99;
+} */
