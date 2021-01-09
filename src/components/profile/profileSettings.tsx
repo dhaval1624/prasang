@@ -28,10 +28,10 @@ const ProfileSetting = (props: ProfileProps) => {
                             {/* {(props.type === "logout")}     */}
                             {/* <a className={props.type === "contact" ? "nav-item nav-link Active" : ""} id="nav-acc-tab"><i className="fa fa-line-chart" /> */}
                             {/* <a className={props.type === "about" ? "nav-item nav-link Active" : ""} id="nav-acc-tab"><i className="fa fa-line-chart" /> */}
-                                <Link to={"/u/myevent"} className={props.type === "about" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />About Us</Link>
+                                <Link to={"/u/about"} className={props.type === "about" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />About Us</Link>
                                 {/* </a> */}
                             {/* <a className={props.type === "contact" ? "nav-item nav-link Active" : ""} id="nav-acc-tab"><i className="fa fa-line-chart" /> */}
-                                <Link to={"/u/myevent"} className={props.type === "contact" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />Contact Us</Link>
+                                <Link to={"/u/contact"} className={props.type === "contact" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />Contact Us</Link>
                                 {/* </a> */}
                             {/* <a className={props.type === "logout"?"nav-item nav-link":""} style={{color: "black"}}><i className="fa fa-line-chart" />  */}
                             <Link to={"/logout"} className={props.type === "logout" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />Logout</Link>

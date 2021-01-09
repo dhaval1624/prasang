@@ -4,12 +4,12 @@ import { useQuery } from '@apollo/client';
 import { useDispatch,useSelector } from 'react-redux'
 import { store } from '../store/storeTypes';
 import PhotoSlice from '../store/slices/PhotoSlice';
-import { Fetch_Photos } from '../utils/GqlQueries';
+import { Fetch_My_Photos } from '../utils/GqlQueries';
 import MyAllPhotos from '../components/profile/MyAllPhotos';
 
 const MyPhotos = (props:any) => {
     const dispatch = useDispatch();
-    const { data, refetch,loading } = useQuery(Fetch_Photos);
+    const { data, refetch,loading } = useQuery(Fetch_My_Photos);
     const photoActions = PhotoSlice.actions;
     const photoData = useSelector((state:store)=>state.photo.photoList);
     useEffect(()=> {
@@ -17,7 +17,7 @@ const MyPhotos = (props:any) => {
             refetch()
             dispatch(
                 photoActions.photo({
-                    Photo:data.photos
+                    Photo:data.myPhotos
                 })
             )        
         } catch (error) {

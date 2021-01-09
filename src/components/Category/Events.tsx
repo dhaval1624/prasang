@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Image, Button, Modal,Table } from 'react-bootstrap';
+import { Image, Button, Modal, Table } from 'react-bootstrap';
 import moment from 'moment';
 import ListGroup from 'react-bootstrap/ListGroup'
 import TrandingEvents from '../home/Events/Events';
@@ -10,28 +10,26 @@ import { BiCalendarEvent } from 'react-icons/bi'
 import { MdDateRange } from 'react-icons/md'
 import { PayPalButton } from "react-paypal-button-v2";
 import './Category.css';
-
+// import Img from '../../assets/images/resources/us-pic.png';
 const Event = (props: any) => {
     const [status, setStatus] = useState("");
     // const [eventParticipant,setEventParticipant] = useState(false);
     const [show, setShow] = useState(false);
     const [amt, setAmt] = useState({
-        amt:"",
-        event:""
+        amt: "",
+        event: ""
     });
     const [id, setId] = useState(0);
     const handleClose = () => setShow(false);
-    const [hover,setHover] = useState(0);
+    const [hover, setHover] = useState(0);
     const [errorParticipant, seterrorParticipant] = useState("")
     // const handleShow = () => setShow(true);
     useEffect(() => {
         console.log(props.errpart);
-        if(props.errpart)
-        {
+        if (props.errpart) {
             seterrorParticipant(props.errpart)
         }
-        if(props.errpart == null)
-        {
+        if (props.errpart == null) {
             setShow(true);
             seterrorParticipant(props.errpart)
         }
@@ -40,45 +38,44 @@ const Event = (props: any) => {
         setStatus(e.target.value);
         await props.status(e.target.value)
     }
-    const paymentHandler = async (id :any,event:string,amt : any) =>{
+    const paymentHandler = async (id: any, event: string, amt: any) => {
         const res = await props.check(id);
         // console.log(res);
-        if((props.errpart!=""&&null) && res==undefined){
+        if ((props.errpart != "" && null) && res == undefined) {
             console.log(props.errpart)
             seterrorParticipant(props.errpart)
         }
-        else if((props.errpart==""&&null) && res==undefined)
-        {
+        else if ((props.errpart == "" && null) && res == undefined) {
             setShow(true);
         }
 
         setAmt({
-            amt:amt,
-            event:event
+            amt: amt,
+            event: event
         });
         setId(id);
     }
-    const hoverHandler = (id : any) => {
+    const hoverHandler = (id: any) => {
         setHover(id);
         seterrorParticipant("");
     }
     const data = (category: any) => {
         let catArr: any = [];
         for (let i = 0; i < category[0].length; i++) {
-            const className = (hover == i) ? 'Active' : 'Actives';  
+            const className = (hover == i) ? 'Active' : 'Actives';
             catArr.push(
                 <>
-                    <ListGroup.Item key={category[0][i].categoryId} className = {className} onClick={()=>hoverHandler(i)}  as={Link} to={`/u/event/${category[0][i].categoryId}`}>
-                        <BiCalendarEvent/>   
-                    {"   "+category[0][i].name}</ListGroup.Item>
-                {/* <hr/> */}
+                    <ListGroup.Item key={category[0][i].categoryId} className={className} onClick={() => hoverHandler(i)} as={Link} to={`/u/event/${category[0][i].categoryId}`}>
+                        <BiCalendarEvent />
+                        {"   " + category[0][i].name}</ListGroup.Item>
+                    {/* <hr/> */}
                 </>
                 // <li key={i} style={{cursor:'pointer'}}  as={Link} to={`/u/event/${category[0][i].categoryId}`}>{category[0][i].name}</li>
             )
         }
         return catArr;
     }
-    
+
     const eventDisplay = (event: any) => {
         let eventArr: any = [];
         if (event[0].length == 0) {
@@ -95,54 +92,60 @@ const Event = (props: any) => {
             return eventArr
         }
         else {
-    
+
             for (let i = 0; i < event[0].length; i++) {
                 eventArr.push(
-                    <div key={"00"+event[0][i].eventId}>
-                    <div className="post-bar" key={"0"+event[0][i].eventId}>
-                        <div className="post_topbar">
-                            <div className="usy-dt">
-                                <img src="images/resources/us-pic.png" alt="" />
-                                <div className="usy-name">
-                                    <h3>{event[0][i].title}</h3>
-                                    <span>{event[0][i].category.name}</span>
+                    <div key={"00" + event[0][i].eventId}>
+                        <div className="post-bar" key={"0" + event[0][i].eventId}>
+                            <div className="post_topbar">
+
+                                <div className="usy-dt">
+                                    <img src={event[0][i].category.imagePath} style={{ width: "40px", objectFit: "cover" }} alt="" />
+                                    <div className="usy-name">
+                                        <h3>{event[0][i].title}</h3>
+                                        <span>{event[0][i].category.name}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="epi-sec">
-                            <ul className="descp" style={{marginLeft:"20px"}}>
-                                <li><span><MdDateRange/> StartDate : {moment(+event[0][i].startDate).format("D/MM/yyyy")}</span></li>
-                                <li><span><MdDateRange/> EndDate : {moment(+event[0][i].endDate).format("D/MM/yyyy")}</span></li>
-                                <li><span><MdDateRange/> LastRegistrationDate : {moment(+event[0][i].lastRegistraionDate).format("D/MM/yyyy")}</span></li>
+                            <div className="epi-sec">
+                                <ul className="descp" style={{ marginLeft: "20px" }}>
+                                    <li><span><MdDateRange /> StartDate : {moment(+event[0][i].startDate).format("D/MM/yyyy")}</span></li>
+                                    <li><span><MdDateRange /> EndDate : {moment(+event[0][i].endDate).format("D/MM/yyyy")}</span></li>
+                                    <li><span><MdDateRange /> LastRegistrationDate : {moment(+event[0][i].lastRegistraionDate).format("D/MM/yyyy")}</span></li>
+                                </ul>
+                                <ul className="bk-links">
+                                    <li><a href="#"><i className="la la-bookmark" /></a></li>
+                                    <li><a href="#"><i className="la la-envelope" /></a></li>
+                                    <li><a href="#"><i className="la la-bookmark" /></a></li>
+                                </ul>
+                            </div>
+
+                            <ul className="job-dt">
+                                <li><a href="#" title="">Prize Money</a></li>
+                                <li><span>Rs. {event[0][i].priceAmount} /- </span></li>
                             </ul>
-                            <ul className="bk-links">
-                                <li><a href="#"><i className="la la-bookmark"/></a></li>
-                                <li><a href="#"><i className="la la-envelope"/></a></li>
-                                <li><a href="#"><i className="la la-bookmark"/></a></li>
-                            </ul>
+                            <Image src={event[0][i].imageUrl} style={{ width: '100%', height: '450px', boxShadow: "2px 2px 5px" }} />
+
+                            <div className="job_descp" style={{ paddingTop: "20px" }}>
+                                <p>{event[0][i].description}</p>
+                            </div>
+                            {(moment(+event[0][i].startDate).isAfter(moment())) ?
+                                <div className="job-status-bar">
+                                    <ul className="like-com">
+                                        <li>Fees: {event[0][i].fees} </li>
+                                        {/* <li style={{ marginLeft: "358px" }}> */}
+                                        {/* </li> */}
+                                        <li><Button style={{ marginLeft: "358px" }} onClick={() => paymentHandler(event[0][i].eventId, event[0][i].title, event[0][i].fees)} variant={"primary"}>Participate Event</Button> </li>
+                                        {/* <li><a href="#" className="com"><i className="fas fa-comment-alt" /> Participate Event</a></li> */}
+                                    </ul>
+                                </div> : ""}
+                            {(event[0][i].eventId == id) ?
+                                (errorParticipant != null || "") ?
+                                    (errorParticipant == "Registration closed for event!") ?
+                                        <span style={{ color: "red" }}> {errorParticipant} </span> :
+                                        <span style={{ color: "green" }}> {errorParticipant} </span>
+                                    : "" : ""}
                         </div>
-                        <Image src={event[0][i].imageUrl} style={{ width: '100%', height: '450px' }} />
-    
-                        <div className="job_descp">
-                            <p>{event[0][i].description}</p>
-                        </div>
-                        {(moment(+event[0][i].startDate).isAfter(moment()))? 
-                        <div className="job-status-bar">
-                            <ul className="like-com">
-                                <li>Fees: {event[0][i].fees} </li>
-                                {/* <li style={{ marginLeft: "358px" }}> */}
-                                {/* </li> */}
-                                <li><Button style={{ marginLeft: "358px" }} onClick={()=>paymentHandler(event[0][i].eventId,event[0][i].title,event[0][i].fees)} variant={"primary"}>Participate Event</Button> </li>
-                                {/* <li><a href="#" className="com"><i className="fas fa-comment-alt" /> Participate Event</a></li> */}
-                            </ul>
-                        </div> : "" }
-                        {(event[0][i].eventId == id) ?
-                        (errorParticipant!=null || "") ?
-                            (errorParticipant == "Registration closed for event!") ? 
-                            <span style={{color:"red"}}> {errorParticipant} </span>  : 
-                            <span style={{color:"green"}}> {errorParticipant} </span>
-                        :"":"" }
-                    </div>
                     </div>
                 )
             }
@@ -154,24 +157,33 @@ const Event = (props: any) => {
         setShow(false);
         await props.amt(id);
     }
+    const eventList = (event:any) => {
+        let eventArr: any = [];
+        for (let i = 0; i < event[0].length; i++) {
+            eventArr.push(<ListGroup.Item>{event[0][i].title}</ListGroup.Item>)
+        }
+        return eventArr;
+    }
     return <>
         <div className="main-section-data">
             <div className="row">
                 <div className="col-lg-3 col-md-4 pd-left-none no-pd">
                     <div className="main-left-sidebar no-margin">
-                        <div className="filter-secs">
-                            <div className="filter-heading" style={{ marginBottom: "0px" }}>
-                                <h3>Categories</h3>
+
+                        <div className="filter-secs" style={{ padding: "10px", boxShadow: "8px 7px 10px #888888" }}>
+                            <div className="filter-heading" style={{ marginBottom: "0px", backgroundColor: "#e44d3a", color: "white", textTransform: "uppercase" }}>
+                                <h3 style={{ color: "white" }}>Categories</h3>
                             </div>
                             <ul className="social_links">
-                            <ListGroup variant="flush">
-                                {data(props.category)}
-                            </ListGroup>
+                                <ListGroup variant="flush">
+                                    {data(props.category)}
+                                </ListGroup>
 
-                            </ul> 
+                            </ul>
                         </div>
-                        <Categories />
-                        <div className="tags-sec full-width">
+                        <br></br>
+                        {/* <Categories /> */}
+                        <div className="tags-sec full-width" style={{ marginTop: "47px" }}>
                             <ul>
                                 <li><a href="#">Help Center</a></li>
                                 <li><a href="#">About</a></li>
@@ -191,7 +203,7 @@ const Event = (props: any) => {
 
                 </div>
                 <div className="col-lg-6">
-                    <div className="form-group" style={{ float: "left", width: "100%", backgroundColor: "#fff", borderLeft: "1px solid #e4e4e4", borderRight: "1px solid #e4e4e4", borderBottom: "1px solid #e4e4e4", marginBottom: "20px", padding: "20px", boxShadow: "0 2px #e4e4e4" }}>
+                    <div className="form-group" style={{ boxShadow: "1px 1px 8px #888888", float: "left", width: "100%", backgroundColor: "#fff", borderLeft: "1px solid #e4e4e4", borderRight: "1px solid #e4e4e4", borderBottom: "1px solid #e4e4e4", marginBottom: "20px", padding: "20px" }}>
                         <form>
                             <select className="form-control" name="status" onChange={(e) => changeData(e)} id="exampleFormControlSelect1" style={{ WebkitAppearance: "menulist-button" }}>
                                 <option value="All">All Event</option>
@@ -202,7 +214,7 @@ const Event = (props: any) => {
                         </form>
                     </div>
                     <div className="main-ws-sec">
-                        <div className="posts-section">
+                        <div className="posts-section" style={{ boxShadow: "1px 1px 1px" }}>
                             {eventDisplay(props.event)}
                             {/* <div className="process-comm">
                                 <div className="spinner">
@@ -215,92 +227,84 @@ const Event = (props: any) => {
                     </div>
                 </div>
                 <div className="col-lg-3 pd-right-none no-pd">
-                    <div className="right-sidebar">
-                        <div className="widget widget-about">
-                            <img src="images/wd-logo.png" alt="" />
-                            <h3>Events</h3>
-                            
-                            <div className="sign_link">
-                            <form>
-                                <ul className="social_links" style={{cursor:"pointer"}}> 
-                                    <ListGroup.Item onClick={() => changeData("All")}>All Event</ListGroup.Item>
-                                    <ListGroup.Item onClick={() => changeData("LiveEvent")}>Live Event</ListGroup.Item>
-                                    <ListGroup.Item onClick={() => changeData("UpcomingEvent")}>Upcoming Event</ListGroup.Item>
-                                    <ListGroup.Item onClick={() => changeData("PastEvent")}>Past Event</ListGroup.Item>
-                                    {/* <li> All Event</li>
-                                    <li> LiveEvent </li>
-                                    <li> UpcomingEvent </li>
-                                    <li> PastEvent </li> */}
-                                </ul>
-                                {/* <select className="form-control" name="status" onChange={(e) => changeData(e)} id="exampleFormControlSelect1" style={{ WebkitAppearance: "menulist-button" }}>
-                                    <option value="All">All Event</option>
-                                    <option value="Ongoing">LiveEvent</option>
-                                    <option value="Upcoming">UpcomingEvent</option>
-                                    <option value="Ended">PastEvent</option>
-                                </select> */}
-                            </form>
-                            </div>
-                        </div>
+                    <div className="main-left-sidebar no-margin">
 
-                        <TrandingEvents />
-                        <Peoples />
+                        <div className="filter-secs" style={{ padding: "10px", boxShadow: "8px 7px 10px #888888", marginBottom: "25px" }}>
+                            <div className="filter-heading" style={{ marginBottom: "0px", backgroundColor: "#e44d3a", color: "white", textTransform: "uppercase" }}>
+                                <h3 style={{ color: "white" }}>Popular Events</h3>
+                            </div>
+                            <ul className="social_links">
+                                <ListGroup variant="flush">
+                                    <ul className="social_links" style={{ cursor: "pointer" }}>
+                                        {eventList(props.event)}
+                                    </ul>
+                                </ListGroup>
+                            </ul>
+                        </div>
+                        {/* <Categories /> */}
+                        <div style={{ marginTop: "50px", boxShadow: "8px 7px 10px #888888" }}>
+                            <TrandingEvents />
+                            <Peoples />
+                        </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
         <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Payment</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <Table>
-                <thead></thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            {"You Can Participant  "}
-                            <b>{amt.event}</b>
-                            <tr>
+            <Modal.Header closeButton>
+                <Modal.Title>Payment</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Table>
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
+                                {"You Can Participant  "}
+                                <b>{amt.event}</b>
+                                <tr>
+                                    <td>
 
+                                    </td>
+                                    <td>
+                                        In Just Rs. {amt.amt} /-
                             </td>
-                            <td>
-                               In Just Rs. {amt.amt} /-
+
+                                </tr>
                             </td>
 
-                            </tr>
-                        </td>
-                        
-                    </tr>
+                        </tr>
 
-                </tbody>
-            </Table>
-        </Modal.Body>
-        <Modal.Footer>
-        <PayPalButton
-                amount={amt.amt} 
-                onSuccess={(details:any, data:any) => {
-                alert("Transaction completed by " + details.payer.name.given_name);
-                paymentSuccess();
-                // return props.amt(id);
-                // OPTIONAL: Call your server to save the transaction
-                    // return fetch("/paypal-transaction-complete", {
-                    //     method: "post",
-                    //     body: JSON.stringify({
-                    //     orderID: data.orderID
-                    //     })
-                    // });
+                    </tbody>
+                </Table>
+            </Modal.Body>
+            <Modal.Footer>
+                <PayPalButton
+                    amount={amt.amt}
+                    onSuccess={(details: any, data: any) => {
+                        alert("Transaction completed by " + details.payer.name.given_name);
+                        paymentSuccess();
+                        // return props.amt(id);
+                        // OPTIONAL: Call your server to save the transaction
+                        // return fetch("/paypal-transaction-complete", {
+                        //     method: "post",
+                        //     body: JSON.stringify({
+                        //     orderID: data.orderID
+                        //     })
+                        // });
                     }
-                }
-            />
-          <Button variant="secondary" style={{background: "#e44d3a"}} onClick={handleClose}>
-            Close
+                    }
+                />
+                <Button variant="secondary" style={{ background: "#e44d3a" }} onClick={handleClose}>
+                    Close
           </Button>
-        </Modal.Footer>
-      </Modal>
+            </Modal.Footer>
+        </Modal>
     </>
 }
 

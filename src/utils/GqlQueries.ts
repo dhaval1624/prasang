@@ -26,6 +26,7 @@ mutation participate($eventId: ID!){
     photoAdded
     event {
       title
+      priceAmount
       eventId
     }
     user {
@@ -111,10 +112,12 @@ query events($categoryId:ID,$status:EventStatus){
         imageUrl
         startDate
         title
+        priceAmount
         eventId
         lastRegistraionDate
         category{
           categoryId
+          imagePath
           name
           }
       }
@@ -129,10 +132,13 @@ export const SINGLE_Event = gql `
           imageUrl
           startDate
           title
+          priceAmount
           eventId
           lastRegistraionDate
           category{
             categoryId
+            name
+            imagePath
             }
     }
     }
@@ -149,10 +155,12 @@ export const My_Participent_Event = gql `
           imageUrl
           startDate
           title
+          priceAmount
           eventId
           lastRegistraionDate
           category{
             categoryId
+            imagePath
             }
         }
         user {
@@ -178,6 +186,7 @@ mutation participateCheck($eventId: ID!){
     photoAdded
     event {
       title
+      priceAmount
       eventId
     }
     user {
@@ -201,9 +210,32 @@ query{
     participant {
       event {
         title
+        priceAmount
         startDate
       }
     }
   }
 }
 `
+
+export const Fetch_My_Photos = gql`
+query {
+  myPhotos{
+    likes
+    comments {
+      text
+    }
+    user {
+      name
+    }
+    imageUrl
+    participant {
+      event {
+        title
+        startDate
+        priceAmount
+      }
+    }
+  }
+}
+` 
