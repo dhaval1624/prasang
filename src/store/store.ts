@@ -1,22 +1,19 @@
-import { createStore, combineReducers, compose } from 'redux';
-import userReducer from './reducer/userReducer';
-import authReducer from './reducer/authReducer';
-import {IUsers,IAuth} from "./reducer/stateTypes";
+import { configureStore } from "@reduxjs/toolkit";
+import AuthSlice from './slices/AuthSlice'
+import CategorySlice from './slices/CategorySlice'
+import EventSlice from "./slices/EventSlice";
+import PhotoSlice from "./slices/PhotoSlice";
+import ParticipationSlice from "./slices/ParticipationSlice";
 
-declare global {
-    interface Window {
-        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+
+const store = configureStore({
+    reducer: {
+        auth: AuthSlice.reducer,
+        category: CategorySlice.reducer,
+        event:EventSlice.reducer,
+        participation:ParticipationSlice.reducer,
+        photo:PhotoSlice.reducer
     }
-}
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-export interface IRootState {
-    user: IUsers
-    auth: IAuth
-}
-const store =createStore(combineReducers({
-    user:userReducer,
-    auth:authReducer,
-}), composeEnhancers());
+});
 
 export default store;

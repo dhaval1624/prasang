@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from './Routes';
 import { Route } from 'react-router';
 import { TOKEN_NAME } from './utils/Constants'
-
 // import User from './user/index';
 
 const upload = createUploadLink({

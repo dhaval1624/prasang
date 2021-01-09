@@ -1,32 +1,143 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
-import AuthCommon from './AuthCommon';
 import Imgs from '../../assets/images/resources/cover-img.jpg';
 import profileImg from '../../assets/images/resources/user-pro-img.png';
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { FaCamera } from 'react-icons/fa';
+import Toast from 'react-bootstrap/Toast'
 const EditProfile = (props: any) => {
-	const [auth, setAuth] = useState({
+  const [show, setShow] = useState(false);
+
+	const [profile, setProfile] = useState({
 		username: '',
 		password: '',
 		name: '',
-		email: ''
-	})
+    email: '',
+    contact: '',
+    image:''
+  })
+
+  const [error,setError] = useState({
+    usernameError:'',
+    passwordError: '', 
+    nameError: '', 
+    emailError: '', 
+    endDateError: '', 
+    contactError: '', 
+    imageError: '',
+    IsValid:true
+})
+  useEffect(()=>{
+    if(props.userProfile != undefined){
+      let old = {...profile};
+      old.username = props.userProfile.username;
+      old.password = props.userProfile.password;
+      old.name = props.userProfile.name;
+      old.email = props.userProfile.email;
+      old.contact = props.userProfile.contactNo;
+      old.image = props.userProfile.image;
+      setProfile(old);
+    }
+    if(props.errormsg)
+    {
+      if(props.errormsg === 'Username already exists'){
+        setError({
+          ...error,
+          usernameError:props.errormsg,
+          IsValid:false
+        })
+      }
+      if(props.errormsg === 'Email already exists'){
+        setError({
+          ...error,
+          emailError:props.errormsg,
+          IsValid:false
+        })
+      }
+      if(props.errormsg === 'ContactNo already exists'){
+        setError({
+          ...error,
+          contactError:props.errormsg,
+          IsValid:false
+        })
+      }
+    }
+  },[props.errormsg,props.userProfile,error.IsValid])
+
 	const onDataChange = (e: any, name: string) => {
-		let oldData: any = { ...auth }
-		oldData[name] = e.target.value;
-		console.log(oldData);
-		setAuth(oldData);
+    let oldData: any = { ...profile }
+    // let errors = { ...error, IsValid : false };
+    if(name === 'image')
+    {
+      const imagePath = e.target.files[0];
+      // if(!imagePath.name.match(/\.(jpg|jpeg|png)$/)) {
+      //   errors.imageError = "image Should be jpg,jpeg or png";
+      //   errors.IsValid = false;
+      // }
+      // else
+      // error.IsValid = true;
+      oldData[name] = imagePath;
+    }
+    else
+    {
+      oldData[name] = e.target.value;
+    }
+    // setError(errors);
+		setProfile(oldData);
 	}
 	const onFinish = async (values: any) => {
-		let registerData = { ...auth }
-		await props.userRegisters(registerData.name, registerData.email, registerData.password, registerData.username)
+    let profileData = { ...profile }
+    let errors = { ...error, IsValid : false };
+    if(!profile.name || profile.name === "")
+    {
+      errors.nameError = "Name Is Required "
+    }
+    else{
+      errors.IsValid = true;
+      errors.nameError = ""
+    }
+    if(!profile.username || profile.username === "")
+    {
+      errors.usernameError = "Username Is Required "
+    }
+    else{
+      errors.IsValid = true;
+      errors.usernameError = ""
+    }
+    
+    if(!profile.contact || profile.contact === "")
+    {
+      errors.contactError = "Mobile No Is Required "
+    }
+    else
+    {
+      errors.IsValid = true;
+      errors.contactError = "";
+    }
+
+    setError(errors);
+    // console.log(profileData);    
+    if(errors.IsValid)
+    {
+      console.log('success');
+      await props.userEdit(profileData.name,profileData.email,profileData.password,profileData.username,profileData.contact,profileData.image)
+    }    
 	};
 	return (
         <>
+        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+          </Toast.Header>
+          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+        </Toast>
         <div className="wrapper">
           <section className="cover-sec">
             <img src={Imgs} alt="" />
@@ -46,9 +157,10 @@ const EditProfile = (props: any) => {
                       <div className="main-left-sidebar">
                         <div className="user_profile">
                           <div className="user-pro-img">
-                            <img src={profileImg} alt="" />
+                            {(profile.image)?<img src={profile.image} height="170px" width="170px" alt=""/>:<img src={profileImg} alt=""/>}
+                            {/* <img src={profile.image} alt="" height="170px" width="170px"/> */}
                             <div className="add-dp" id="OpenImgUpload">
-                              <input type="file" id="file" />
+                              <input type="file" id="file" name="image" onChange={(e) => onDataChange(e, 'image')} />
                               <label htmlFor="file">
                                 <FontAwesomeIcon icon={faCamera} size="2x" style={{color: "#e44d3a"}}></FontAwesomeIcon>
                               </label>
@@ -57,13 +169,12 @@ const EditProfile = (props: any) => {
                           <div className="user_pro_status">
                             <ul className="flw-status">
                               <li>
-                                <span>Following</span>
-                                <b>34</b>
+                                <span>{profile.username}</span>
                               </li>
-                              <li>
+                              {/* <li>
                                 <span>Followers</span>
                                 <b>155</b>
-                              </li>
+                              </li> */}
                             </ul>
                           </div>
                           
@@ -90,52 +201,50 @@ const EditProfile = (props: any) => {
                     
                     <div className="acc-setting" style={{backgroundColor: "#e2e2e2",borderStyle: "groove",borderTopLeftRadius: "107px"}}>
                     <h3 style={{marginLeft: "254px"}}>My Profile</h3>
-                    <form>
-                    <div className="cp-field">
-                    <h5>Name</h5>
-                    <div className="cpp-fiel">
-                    <input type="text" name="name" placeholder="Name"/>
-                    <i className="fa fa-envelope"></i>
-                    </div>
-                    </div>
-                    
-                    <div className="cp-field">
-                    <h5>Username</h5>
-                    <div className="cpp-fiel">
-                    <input type="text" name="username" placeholder="User Name"/>
-                    <i className="fa fa-envelope"></i>
-                    </div>
-                    </div>
+                    <Form>
+                    <Form.Group className="cp-field" controlId="formBasicPassword">
+                      <Form.Label style={{fontWeight: 600 , marginBottom: "10px"}}>Name</Form.Label>
+                      <Form.Control isInvalid={(error.nameError) ? true : false} className="cpp-fiel" type="text" name="name" placeholder="Name" value={profile.name || ''} onChange={(e) => onDataChange(e, 'name')} />
+                      <Form.Control.Feedback type="invalid">
+                          {error.nameError}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group className="cp-field" controlId="formBasicPassword">
+                      <Form.Label style={{fontWeight: 600 , marginBottom: "10px"}}>Username</Form.Label>
+                      <Form.Control isInvalid={(error.usernameError) ? true : false} className="cpp-fiel" name="username" placeholder="User Name" value={profile.username} onChange={(e) => onDataChange(e, 'username')}/>
+                      {/* <i className="fa fa-envelope"></i> */}
+                      
+                      <Form.Control.Feedback type="invalid">
+                            {error.usernameError}
+                        </Form.Control.Feedback>
+                    </Form.Group>
 
-                    <div className="cp-field">
-                    <h5>Email</h5>
-                    <div className="cpp-fiel">
-                    <input type="text" name="email" placeholder="Email"/>
-                    <i className="fa fa-envelope"></i>
-                    </div>
-                    </div>
-                    <div className="cp-field">
-                      <h5>Mobile No</h5>
-                      <div className="cpp-fiel">
-                        <input type="number" name="username" placeholder="Mobile No"/>
-                        <i className="fa fa-envelope"></i>
-                      </div>
-                    </div>
-                    
-                    <div className="cp-field">
-                    <h5>Password</h5>
-                    <div className="cpp-fiel">
-                    <input type="password" name="password" placeholder="Password"/>
-                    <i className="fa fa-lock"></i>
-                    </div>
-                    </div>
-                    <div className="save-stngs pd3">
-                    <ul>
+                    <Form.Group className="cp-field" controlId="formBasicPassword">
+                      <Form.Label style={{fontWeight: 600 , marginBottom: "10px"}}>Email</Form.Label>
+                      <Form.Control isInvalid={(error.emailError) ? true : false} className="cpp-fiel" name="email" placeholder="Email" value={profile.email || ''} onChange={(e) => onDataChange(e, 'email')} readOnly/>
+                      {/* <i className="fa fa-envelope"></i> */}
+                      <Form.Control.Feedback type="invalid">
+                            {error.emailError}
+                        </Form.Control.Feedback>
+                    </Form.Group>
 
-                    <li><button type="submit">Save</button></li>
-                    </ul>
-                    </div>
-                    </form>
+                    <Form.Group className="cp-field" controlId="formBasicPassword">
+                      <Form.Label style={{fontWeight: 600 , marginBottom: "10px"}}>Mobile No</Form.Label>
+                      <Form.Control isInvalid={(error.contactError) ? true : false} className="cpp-fiel" name="contact" placeholder="Mobile No" value={profile.contact || ''} onChange={(e) => onDataChange(e, 'contact')}/>
+                      <Form.Control.Feedback type="invalid">
+                            {error.contactError}
+                        </Form.Control.Feedback>
+                    </Form.Group>
+
+                    {/* <Form.Group className="cp-field" controlId="formBasicPassword">
+                      <Form.Label style={{fontWeight: 600 , marginBottom: "10px"}}>Password</Form.Label>
+                      <Form.Control className="cpp-fiel" type="password" name="password" placeholder="Password" onChange={(e) => onDataChange(e, 'password')}/>
+                      <i className="fa fa-envelope"></i>
+                    </Form.Group> */}
+                    <Button variant="primary" onClick={onFinish} style={{ marginLeft: "20px", marginBottom: "20px"}}>
+                      Submit
+                    </Button>
+                    </Form>
                     </div>
 
                     </div>
