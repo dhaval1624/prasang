@@ -1,0 +1,42 @@
+.wrapper {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+    border-left: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 20px;
+    -ms-box-shadow: 0 2px #e4e4e4;
+    -o-box-shadow: 0 2px #e4e4e4;
+    box-shadow: 0 2px #e4e4e4;
+}
+.list {
+    float: left;
+    width: 100%;
+    padding:10px;
+}
+.card {
+    float: left;
+    width: 100%;
+    padding: 8px 5px;
+}
+.card img {
+    width: 35px;
+    height: 35px;
+}
+.text {
+    float: left;
+    padding-left: 10px;
+}
+.text h2 {
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    /* margin-bottom: 4px; */
+    display: flex;
+    align-content: center;
+}
+.text span {
+    color: #686868;
+    font-size: 14px;
+}

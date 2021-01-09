@@ -1,0 +1,22 @@
+.Actives {
+    color: black !important;
+}
+
+.Actives:hover {
+    /* border-bottom: 3px solid #e44d3a; */
+    color: #e44d3a !important;
+}
+
+.Active {
+    background-color: inherit !important;
+    color: #e44d3a !important;
+    border-color: inherit !important;
+    border-bottom: 3px solid #e44d3a !important;
+}
+
+.Active1:hover {
+    background-color: inherit !important;
+    color: #e44d3a !important;
+    border-color: inherit !important;
+    border-bottom: 3px solid #e44d3a !important;
+}
