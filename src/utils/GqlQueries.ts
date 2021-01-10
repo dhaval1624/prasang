@@ -116,6 +116,26 @@ export const homePhotos = gql`
         }
     }
 `;
+export const homeFeed = gql`
+    query {
+        feed(limit: 5) {
+            photoId
+            imageUrl
+            likes
+            isLiked
+            winner
+            comments {
+                commentId
+            }
+            user {
+                name
+                image
+            }
+            createdAt
+            updatedAt
+        }
+    }
+`;
 export const likePhoto = gql`
     mutation likePhoto($photoId: ID!) {
         likePhoto(photoId: $photoId)

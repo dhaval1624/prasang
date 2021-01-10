@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { Spinner } from "react-bootstrap";
 
 import { postt } from "../../../store/storeTypes";
-import { homePhotos, likePhoto } from "../../../utils/GqlQueries";
+import { homeFeed, likePhoto } from "../../../utils/GqlQueries";
 import Post from "./Post/Post";
 // import { ppost } from "./PostsTypes";
 import PostView from "./PostView/PostView";
+import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
 interface postsResult {
-    photos: [postt];
+    feed: [postt];
 }
 
 const renderPosts = (
@@ -28,10 +29,45 @@ const renderPosts = (
 };
 
 const Posts = () => {
-    const { error, loading, data } = useQuery<postsResult>(homePhotos);
+    const { refetch, error, loading, data } = useQuery<postsResult>(homeFeed);
     const [selectedPost, setSelectedPost] = useState<postt>();
     const [viewPost, setViewPost] = useState(false);
     const [likePhotoCall] = useMutation<number>(likePhoto);
+    const [posts, setPosts] = useState<[postt]>();
+
+    const callback = async () => {
+        console.log("scrolled to bottom");
+        if (!loading) {
+            console.log("bottom refetched");
+            refetch();
+            // updateFeedState();
+        }
+    };
+
+    useBottomScrollListener(callback, {
+        offset: 50,
+    });
+
+    console.log(error, loading, data);
+
+    const updateFeedState = useCallback(() => {
+        if (data && !loading && !error) {
+            if (posts && posts?.length > 0) {
+                let newPosts: any = [...posts];
+                newPosts = newPosts.concat([...data.feed]);
+                setPosts(newPosts);
+            } else {
+                setPosts(data.feed);
+            }
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!loading && !error && data) {
+            updateFeedState();
+            console.log("useeffect called");
+        }
+    }, [updateFeedState, loading, error, data]);
 
     const onPostSelect = (post: postt) => {
         setSelectedPost(post);
@@ -62,8 +98,8 @@ const Posts = () => {
     }
 
     let content: any = <Spinner animation="border" />;
-    if (!loading && data) {
-        content = renderPosts(data.photos, onPostSelect, likePhotoHandler);
+    if (!loading && posts) {
+        content = renderPosts(posts, onPostSelect, likePhotoHandler);
     } else {
         content = error ? error : "";
     }

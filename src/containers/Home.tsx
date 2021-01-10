@@ -23,7 +23,13 @@ const Home = () => {
                             <div className="main-section-data">
                                 <div className="row">
                                     <div className="col-lg-3 col-md-4 pd-left-none no-pd">
-                                        <div className="main-left-sidebar no-margin">
+                                        <div
+                                            className="main-left-sidebar no-margin"
+                                            style={{
+                                                position: "sticky",
+                                                top: 0,
+                                            }}
+                                        >
                                             {/* User Profile */}
                                             <UserCard user={user} />
 
@@ -94,7 +100,13 @@ const Home = () => {
                                     </div>
 
                                     <div className="col-lg-3 pd-right-none no-pd">
-                                        <div className="right-sidebar">
+                                        <div
+                                            className="right-sidebar"
+                                            style={{
+                                                position: "sticky",
+                                                top: 0,
+                                            }}
+                                        >
                                             <div className="widget widget-about">
                                                 <img
                                                     src="images/wd-logo.png"
