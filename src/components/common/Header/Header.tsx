@@ -1,9 +1,17 @@
 import React from 'react';
-import { faHome, faCalendarAlt, faUserCircle, faUserCog } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
+import { faHome, faCalendarAlt, faUserCircle, faUserCog,faCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classes from './Header.module.css'
-
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
 const Header = (props: any) => {
+	const drop =  <DropdownButton menuAlign="right" title="Dropdown right" id="dropdown-menu-align-right">
+	<Dropdown.Item eventKey="/u/profile">My Profile</Dropdown.Item>
+	<Dropdown.Item eventKey="/u/changepassword">Change Password</Dropdown.Item>
+	<Dropdown.Divider />
+	<Dropdown.Item eventKey="/u/logout">Logout</Dropdown.Item>
+</DropdownButton> 
 	return <>
 		<header>
 			<div className="container">
@@ -20,19 +28,36 @@ const Header = (props: any) => {
 					<nav>
 						<ul>
 							<li>
-								<FontAwesomeIcon icon={faHome} className={classes.faHeaderIcon} size="2x" />
+								<Link to={"/u/home"}>
+									<FontAwesomeIcon icon={faHome} className={classes.faHeaderIcon} size="2x" />
+								</Link>
 							</li>
 							<li>
-								<FontAwesomeIcon icon={faCalendarAlt} className={classes.faHeaderIcon} size="2x" />
+								<Link to={"/u/category"}>
+									<FontAwesomeIcon icon={faCalendarAlt} className={classes.faHeaderIcon} size="2x" />
+								</Link>
 							</li>
 							<li>
-								<FontAwesomeIcon icon={faUserCircle} className={classes.faHeaderIcon} size="2x" />
+								<Link to={"/u/profile"}>
+									<FontAwesomeIcon icon={faUserCircle} className={classes.faHeaderIcon} size="2x" />
+								</Link>
 							</li>
 						</ul>
 					</nav>
+					 {/* <div className="user-account">
+						<div className="user-info">
+							<Link to={"/u/profile"}>
+							<FontAwesomeIcon icon={faUserCog } className={classes.faHeaderIcon} size="2x"/>
+							</Link>		 
+						</div>
+					</div>  */}
+
 					<div className="user-account">
 						<div className="user-info">
-							<FontAwesomeIcon icon={faUserCog} className={classes.faHeaderIcon} size="2x" />
+							<Link to={"/u/changepassword"}>
+							<FontAwesomeIcon icon={faCog} className={classes.faHeaderIcon} size="2x"/>
+							{/* {drop} */}
+							</Link>		 
 						</div>
 					</div>
 				</div>

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
-
 import "./Auth.css";
 import { Login_User, Register_User } from "../utils/GqlQueries";
 import Login from "../components/auth/Login";
 import Register from "../components/auth/UserRegister";
-import { setToken } from "../store/actions/AuthActions";
+import {
+    setToken,
+    removeToken,
+    checkAutoAuth,
+} from "../store/actions/AuthActions";
 import AuthSlice from "../store/slices/AuthSlice";
 
 const Auth = (props: any) => {
@@ -50,11 +53,27 @@ const Auth = (props: any) => {
                     username: username,
                 },
             });
-            props.history.push("/user/login");
+            props.history.push("/login");
         } catch (error) {
             console.log(error.message);
         }
     };
+
+    if (props.type == "logout") {
+        try {
+            let token = checkAutoAuth();
+
+            dispatch(
+                authActions.logout({
+                    token: "",
+                })
+            );
+            removeToken(token);
+            props.history.push("/login");
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     let render = <Login userAdmin={userAdmin} errormsg={err} />;
     if (props.type === "register") {

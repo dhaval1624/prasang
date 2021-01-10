@@ -9,3 +9,7 @@ export const checkAutoAuth = () => {
 export const setToken = (token: string) => {
     localStorage.setItem(TOKEN_NAME, token);
 }
+
+export const removeToken = (token: string) => {
+    localStorage.removeItem(token);
+}   
