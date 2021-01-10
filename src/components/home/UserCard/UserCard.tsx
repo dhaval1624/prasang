@@ -15,8 +15,6 @@ const UserCard = (props: UserCardProps) => {
         stripes.push(commonClasses.stripe, commonClasses.center);
     }
 
-    console.log(props.user);
-
     return (
         <div className="user-data full-width">
             <div className="user-profile">

@@ -20,7 +20,6 @@ const Wrapper = (props: WrapperProp) => {
     const dispatch = useDispatch();
     const { login } = AuthSlice.actions;
     let storeToken = useSelector((state: store) => state.auth.token);
-    console.log("asdff");
 
     useEffect(() => {
         try {

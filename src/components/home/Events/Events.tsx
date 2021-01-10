@@ -82,7 +82,7 @@ const Events = () => {
         }
     );
     let stripeClasses: string[] = [commonClasses.stripe, commonClasses.left];
-    console.log(data, loading);
+
     return (
         <div className={commonClasses.wrapper}>
             <div className={commonClasses.heading}>

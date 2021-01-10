@@ -13,7 +13,7 @@ const PostViewContent = (props: PostViewContentProps) => {
     let content: any = <Spinner animation="border" />;
     if (!props.loading && props.comments) {
         content = props.comments.map((comment) => (
-            <div className={classes.commentBox}>
+            <div className={classes.commentBox} key={comment.commentId}>
                 <div className={classes.comment} key={comment.commentId}>
                     <h3>{comment.user.name}</h3>
                     <div style={{ marginBottom: "5px" }}>

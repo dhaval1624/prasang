@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const Login_User = gql`
     mutation login($email: String!, $password: String!) {
-        login(data: { email: $email, password: $password, role: "User" }) {
+        login(data: { email: $email, password: $password }) {
             token
             user {
                 username
@@ -334,6 +334,27 @@ export const Fetch_My_Photos = gql`
                     priceAmount
                 }
             }
+        }
+    }
+`;
+
+export const userParticipations = gql`
+    query getParticipations($photoAdded: Boolean) {
+        participations(photoAdded: $photoAdded) {
+            participationId
+            event {
+                eventId
+                title
+            }
+        }
+    }
+`;
+
+export const postPhoto = gql`
+    mutation addPhoto($image: Upload!, $eventId: ID!) {
+        addPhoto(eventId: $eventId, image: $image) {
+            photoId
+            imageUrl
         }
     }
 `;

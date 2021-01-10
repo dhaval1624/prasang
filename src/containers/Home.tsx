@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./main";
 
 // import userImage from "../assets/images/resources/s1.png";
-import Header from "../components/common/Header/Header";
 import UserCard from "../components/home/UserCard/UserCard";
 import Posts from "../components/home/Posts/Posts";
+import HomeEventTop from "../components/home/HomeEventTop/HomeEventTop";
 import TrandingEvents from "../components/home/Events/Events";
 import Peoples from "../components/home/TopViewedPeople/Peoples";
 import Categories from "../components/home/EventsCategories/Categories";
@@ -16,7 +16,6 @@ const Home = () => {
 
     return (
         <>
-            <Header />
             <div className="wrapper">
                 <main>
                     <div className="main-section">
@@ -89,51 +88,8 @@ const Home = () => {
 
                                     <div className="col-lg-6 col-md-8 no-pd">
                                         <div className="main-ws-sec">
-                                            <div className="post-topbar">
-                                                <div className="user-picy">
-                                                    <img
-                                                        src="images/resources/user-pic.png"
-                                                        alt=""
-                                                    />
-                                                </div>
-                                                <div className="post-st">
-                                                    <ul>
-                                                        <li>
-                                                            <a
-                                                                className="post_project active"
-                                                                href="#"
-                                                            >
-                                                                Add a Photo
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a
-                                                                className="post-jb"
-                                                                href="#"
-                                                            >
-                                                                Participate in
-                                                                Event
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div className="posts-section">
-                                                {/* [Posts] */}
-                                                <Posts />
-
-                                                {/* <PostView /> */}
-
-                                                {/* Loading */}
-                                                <div className="process-comm">
-                                                    <div className="spinner">
-                                                        <div className="bounce1" />
-                                                        <div className="bounce2" />
-                                                        <div className="bounce3" />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <HomeEventTop />
+                                            <Posts />
                                         </div>
                                     </div>
 

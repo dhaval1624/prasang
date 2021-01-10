@@ -70,8 +70,19 @@ const Posts = () => {
 
     return (
         <>
-            {viewPostContent}
-            {content}
+            <div className="posts-section">
+                {viewPostContent}
+                {content}
+
+                {/* Loading */}
+                <div className="process-comm">
+                    <div className="spinner">
+                        <div className="bounce1" />
+                        <div className="bounce2" />
+                        <div className="bounce3" />
+                    </div>
+                </div>
+            </div>
         </>
     );
 };
