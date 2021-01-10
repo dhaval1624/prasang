@@ -69,8 +69,8 @@ const Event = (props:any) => {
     }
     const check = async (eventId:string) => {
         try{
-            console.log(eventId)
             const response=await eventspart({variables:{eventId: eventId}});
+            // setparticipantError("");
             if(response.data.participateCheck == null)
                 setparticipantError(response.data.participateCheck);
             // console.log(response.data.participateCheck);

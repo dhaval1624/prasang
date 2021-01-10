@@ -33,6 +33,7 @@ const Routes = (props:any) => {
                     <Route path="/u/changepassword" exact render={ (props) => <Password {...props} type="changepassword" /> }/>
                     <Route path="/u/category" exact component={Category} />
                     <Route path="/u/event/:id" exact component={Event} />
+                    <Route path="/u/event/" exact component={Event} />
                     <Route path="/u/myevent" exact render={ (props) => <MyEvent {...props} type="changepassword" /> } />
                     <Route path="/u/myphoto" exact render={ (props) => <MyPhoto {...props} type="myphotos" /> } />
                     

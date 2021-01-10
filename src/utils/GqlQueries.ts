@@ -123,6 +123,26 @@ query events($categoryId:ID,$status:EventStatus){
       }
 }`
 
+export const FetchEvents= gql` 
+query {
+    events(where:{status:$status}) {
+        description
+        endDate
+        fees
+        imageUrl
+        startDate
+        title
+        priceAmount
+        eventId
+        lastRegistraionDate
+        category{
+          categoryId
+          imagePath
+          name
+          }
+      }
+}`
+
 export const SINGLE_Event = gql `
     query event($eventId:ID!){
       event(eventId: $eventId) {

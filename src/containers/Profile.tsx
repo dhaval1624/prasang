@@ -57,7 +57,7 @@ const Profile = (props: any) => {
     }
     const error = useSelector((state:store)=>state.auth.error);
     let data : any = ""
-    console.log(profileError.length);
+
     if(profileError.length > 0)
     {
         data = <EditProfile userEdit = {userEditProfile} errormsg={profileError}/>

@@ -19,10 +19,13 @@ const Event = (props: any) => {
         amt: "",
         event: ""
     });
-    const [id, setId] = useState(0);
-    const handleClose = () => setShow(false);
-    const [hover, setHover] = useState(0);
     const [errorParticipant, seterrorParticipant] = useState("")
+    const [id, setId] = useState(0);
+    const handleClose = () => {  
+        setShow(false); 
+        seterrorParticipant("");
+    }
+    const [hover, setHover] = useState(0);
     // const handleShow = () => setShow(true);
     useEffect(() => {
         console.log(props.errpart);
@@ -40,12 +43,10 @@ const Event = (props: any) => {
     }
     const paymentHandler = async (id: any, event: string, amt: any) => {
         const res = await props.check(id);
-        // console.log(res);
         if ((props.errpart != "" && null) && res == undefined) {
-            console.log(props.errpart)
             seterrorParticipant(props.errpart)
-        }
-        else if ((props.errpart == "" && null) && res == undefined) {
+        }else 
+        if ((props.errpart == null) && res == undefined) {
             setShow(true);
         }
 
