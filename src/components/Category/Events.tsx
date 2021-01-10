@@ -11,49 +11,20 @@ import { MdDateRange } from 'react-icons/md'
 import { PayPalButton } from "react-paypal-button-v2";
 import './Category.css';
 // import Img from '../../assets/images/resources/us-pic.png';
-const Event = (props: any) => {
+const Events = (props: any) => {
     const [status, setStatus] = useState("");
     // const [eventParticipant,setEventParticipant] = useState(false);
-    const [show, setShow] = useState(false);
-    const [amt, setAmt] = useState({
-        amt: "",
-        event: ""
-    });
+    // const [show, setShow] = useState(false);
+    
     const [errorParticipant, seterrorParticipant] = useState("")
     const [id, setId] = useState(0);
-    const handleClose = () => {  
-        setShow(false); 
-        seterrorParticipant("");
-    }
     const [hover, setHover] = useState(0);
-    // const handleShow = () => setShow(true);
-    useEffect(() => {
-        console.log(props.errpart);
-        if (props.errpart) {
-            seterrorParticipant(props.errpart)
-        }
-        if (props.errpart == null) {
-            setShow(true);
-            seterrorParticipant(props.errpart)
-        }
-    }, [props.errpart])
     const changeData = async (e: any) => {
         setStatus(e.target.value);
         await props.status(e.target.value)
     }
     const paymentHandler = async (id: any, event: string, amt: any) => {
-        const res = await props.check(id);
-        if ((props.errpart != "" && null) && res == undefined) {
-            seterrorParticipant(props.errpart)
-        }else 
-        if ((props.errpart == null) && res == undefined) {
-            setShow(true);
-        }
-
-        setAmt({
-            amt: amt,
-            event: event
-        });
+        const res = await props.check(id,event,amt);
         setId(id);
     }
     const hoverHandler = (id: any) => {
@@ -153,11 +124,7 @@ const Event = (props: any) => {
             return eventArr;
         }
     }
-    const paymentSuccess = async () => {
-        console.log("Called");
-        setShow(false);
-        await props.amt(id);
-    }
+
     const eventList = (event:any) => {
         let eventArr: any = [];
         for (let i = 0; i < event[0].length; i++) {
@@ -253,60 +220,7 @@ const Event = (props: any) => {
                 </div>
             </div>
         </div>
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Payment</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Table>
-                    <thead></thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                {"You Can Participant  "}
-                                <b>{amt.event}</b>
-                                <tr>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        In Just Rs. {amt.amt} /-
-                            </td>
-
-                                </tr>
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-                </Table>
-            </Modal.Body>
-            <Modal.Footer>
-                <PayPalButton
-                    amount={amt.amt}
-                    onSuccess={(details: any, data: any) => {
-                        alert("Transaction completed by " + details.payer.name.given_name);
-                        paymentSuccess();
-                        // return props.amt(id);
-                        // OPTIONAL: Call your server to save the transaction
-                        // return fetch("/paypal-transaction-complete", {
-                        //     method: "post",
-                        //     body: JSON.stringify({
-                        //     orderID: data.orderID
-                        //     })
-                        // });
-                    }
-                    }
-                />
-                <Button variant="secondary" style={{ background: "#e44d3a" }} onClick={handleClose}>
-                    Close
-          </Button>
-            </Modal.Footer>
-        </Modal>
     </>
 }
 
-export default Event;
+export default Events;
