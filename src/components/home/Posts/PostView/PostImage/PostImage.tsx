@@ -11,7 +11,7 @@ const PostImage = (props: postImageProps) => {
             fluid
             style={{
                 width: "inherit",
-                height: "100%",
+                height: "530px", // Changes
                 maxWidth: "100%",
             }}
         />

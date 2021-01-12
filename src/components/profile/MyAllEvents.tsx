@@ -7,7 +7,7 @@ const myEvents = (participant:any) => {
     const len = participant[0].length;
     if(len == 0)
     {
-        myArr.push(<><div className="notifications-list">
+        myArr.push(<><div className="notifications-list" key="eve">
         <div className="notfication-details">
             No Event Participant
         </div>
@@ -17,7 +17,7 @@ const myEvents = (participant:any) => {
     {
 
         for (let i = 0; i < participant[0].length; i++) {
-            myArr.push(<><div className="notifications-list">
+            myArr.push(<><div className="notifications-list" key={i}>
         <div className="notfication-details">
             <div className="noty-user-img">
                 <img src={participant[0][i].event.imageUrl} alt="" />
@@ -33,6 +33,7 @@ const myEvents = (participant:any) => {
     return myArr;
 }
 const MyAllEvent = (props: any) => {
+    console.log("Called My ALL")
     return <>
         <ProfileProps type="event">
             <div className="acc-setting">

@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const Login_User = gql`
     mutation login($email: String!, $password: String!) {
-        login(data: { email: $email, password: $password }) {
+        login(data: { email: $email, password: $password ,role:"User"}) {
             token
             user {
                 username
@@ -226,57 +226,75 @@ export const Change_Password = gql`
     }
 `;
 
-export const FetchCategory = gql`
-    query {
-        eventCategories {
+
+export const FetchEvent= gql` 
+query events($categoryId:ID,$status:EventStatus){
+    events(where:{categoryId: $categoryId,status:$status}) {
+        description
+        endDate
+        fees
+        imageUrl
+        startDate
+        title
+        priceAmount
+        eventId
+        lastRegistraionDate
+        category{
+          categoryId
+          imagePath
+          name
+          }
+      }
+}`
+
+export const FetchEvents= gql` 
+query {
+    events(where:{status:$status}) {
+        description
+        endDate
+        fees
+        imageUrl
+        startDate
+        title
+        priceAmount
+        eventId
+        lastRegistraionDate
+        category{
+          categoryId
+          imagePath
+          name
+          }
+      }
+}`
+
+export const SINGLE_Event = gql `
+    query event($eventId:ID!){
+      event(eventId: $eventId) {
+          description
+          endDate
+          fees
+          imageUrl
+          startDate
+          title
+          priceAmount
+          eventId
+          lastRegistraionDate
+          category{
             categoryId
             name
             imagePath
-        }
-    }
-`;
-
-export const FetchEvent = gql`
-    query events($categoryId: ID, $status: EventStatus) {
-        events(where: { categoryId: $categoryId, status: $status }) {
-            description
-            endDate
-            fees
-            imageUrl
-            startDate
-            title
-            priceAmount
-            eventId
-            lastRegistraionDate
-            category {
-                categoryId
-                imagePath
-                name
             }
-        }
     }
-`;
-
-export const SINGLE_Event = gql`
-    query event($eventId: ID!) {
-        event(eventId: $eventId) {
-            description
-            endDate
-            fees
-            imageUrl
-            startDate
-            title
-            priceAmount
-            eventId
-            lastRegistraionDate
-            category {
-                categoryId
-                name
-                imagePath
-            }
-        }
     }
-`;
+`
+export const FetchCategory= gql` 
+query {
+    eventCategories {
+        categoryId
+        name
+        imagePath
+    }
+}`
 
 export const My_Participent_Event = gql`
     query {
@@ -354,8 +372,18 @@ export const Fetch_My_Photos = gql`
     query {
         myPhotos {
             likes
+            photoId
             comments {
                 text
+                user {
+                    username
+                    userId
+                    name
+                    image
+                }
+            photo {
+                photoId
+            }
             }
             user {
                 name

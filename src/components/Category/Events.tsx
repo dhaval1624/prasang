@@ -11,48 +11,20 @@ import { MdDateRange } from 'react-icons/md'
 import { PayPalButton } from "react-paypal-button-v2";
 import './Category.css';
 // import Img from '../../assets/images/resources/us-pic.png';
-const Event = (props: any) => {
+const Events = (props: any) => {
     const [status, setStatus] = useState("");
     // const [eventParticipant,setEventParticipant] = useState(false);
-    const [show, setShow] = useState(false);
-    const [amt, setAmt] = useState({
-        amt: "",
-        event: ""
-    });
-    const [id, setId] = useState(0);
-    const handleClose = () => setShow(false);
-    const [hover, setHover] = useState(0);
+    // const [show, setShow] = useState(false);
+    
     const [errorParticipant, seterrorParticipant] = useState("")
-    // const handleShow = () => setShow(true);
-    useEffect(() => {
-        console.log(props.errpart);
-        if (props.errpart) {
-            seterrorParticipant(props.errpart)
-        }
-        if (props.errpart == null) {
-            setShow(true);
-            seterrorParticipant(props.errpart)
-        }
-    }, [props.errpart])
+    const [id, setId] = useState(0);
+    const [hover, setHover] = useState(0);
     const changeData = async (e: any) => {
         setStatus(e.target.value);
         await props.status(e.target.value)
     }
     const paymentHandler = async (id: any, event: string, amt: any) => {
-        const res = await props.check(id);
-        // console.log(res);
-        if ((props.errpart != "" && null) && res == undefined) {
-            console.log(props.errpart)
-            seterrorParticipant(props.errpart)
-        }
-        else if ((props.errpart == "" && null) && res == undefined) {
-            setShow(true);
-        }
-
-        setAmt({
-            amt: amt,
-            event: event
-        });
+        const res = await props.check(id,event,amt);
         setId(id);
     }
     const hoverHandler = (id: any) => {
@@ -129,22 +101,25 @@ const Event = (props: any) => {
                             <div className="job_descp" style={{ paddingTop: "20px" }}>
                                 <p>{event[0][i].description}</p>
                             </div>
-                            {(moment(+event[0][i].startDate).isAfter(moment())) ?
+                            {/* {event[0][i].fees != 0 ? */}
                                 <div className="job-status-bar">
                                     <ul className="like-com">
                                         <li>Fees: {event[0][i].fees} </li>
                                         {/* <li style={{ marginLeft: "358px" }}> */}
                                         {/* </li> */}
+                                        
+                                        {(moment(+event[0][i].lastRegistraionDate)).isAfter(moment()) ?
                                         <li><Button style={{ marginLeft: "358px" }} onClick={() => paymentHandler(event[0][i].eventId, event[0][i].title, event[0][i].fees)} variant={"primary"}>Participate Event</Button> </li>
+                                        :""}
                                         {/* <li><a href="#" className="com"><i className="fas fa-comment-alt" /> Participate Event</a></li> */}
                                     </ul>
-                                </div> : ""}
-                            {(event[0][i].eventId == id) ?
+                                </div> 
+                            {/* {(event[0][i].eventId == id) ?
                                 (errorParticipant != null || "") ?
                                     (errorParticipant == "Registration closed for event!") ?
                                         <span style={{ color: "red" }}> {errorParticipant} </span> :
                                         <span style={{ color: "green" }}> {errorParticipant} </span>
-                                    : "" : ""}
+                                    : "" : ""} */}
                         </div>
                     </div>
                 )
@@ -152,11 +127,7 @@ const Event = (props: any) => {
             return eventArr;
         }
     }
-    const paymentSuccess = async () => {
-        console.log("Called");
-        setShow(false);
-        await props.amt(id);
-    }
+
     const eventList = (event:any) => {
         let eventArr: any = [];
         for (let i = 0; i < event[0].length; i++) {
@@ -168,7 +139,8 @@ const Event = (props: any) => {
         <div className="main-section-data">
             <div className="row">
                 <div className="col-lg-3 col-md-4 pd-left-none no-pd">
-                    <div className="main-left-sidebar no-margin">
+                    {/* style={{position: "sticky top 0px"}} */}
+                    <div className="main-left-sidebar no-margin" style={{position:"sticky",top:"0px"}}>
 
                         <div className="filter-secs" style={{ padding: "10px", boxShadow: "8px 7px 10px #888888" }}>
                             <div className="filter-heading" style={{ marginBottom: "0px", backgroundColor: "#e44d3a", color: "white", textTransform: "uppercase" }}>
@@ -227,7 +199,7 @@ const Event = (props: any) => {
                     </div>
                 </div>
                 <div className="col-lg-3 pd-right-none no-pd">
-                    <div className="main-left-sidebar no-margin">
+                    <div className="main-left-sidebar no-margin" style={{position:"sticky",top:"0px"}}>
 
                         <div className="filter-secs" style={{ padding: "10px", boxShadow: "8px 7px 10px #888888", marginBottom: "25px" }}>
                             <div className="filter-heading" style={{ marginBottom: "0px", backgroundColor: "#e44d3a", color: "white", textTransform: "uppercase" }}>
@@ -252,60 +224,7 @@ const Event = (props: any) => {
                 </div>
             </div>
         </div>
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Payment</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Table>
-                    <thead></thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                {"You Can Participant  "}
-                                <b>{amt.event}</b>
-                                <tr>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        In Just Rs. {amt.amt} /-
-                            </td>
-
-                                </tr>
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-                </Table>
-            </Modal.Body>
-            <Modal.Footer>
-                <PayPalButton
-                    amount={amt.amt}
-                    onSuccess={(details: any, data: any) => {
-                        alert("Transaction completed by " + details.payer.name.given_name);
-                        paymentSuccess();
-                        // return props.amt(id);
-                        // OPTIONAL: Call your server to save the transaction
-                        // return fetch("/paypal-transaction-complete", {
-                        //     method: "post",
-                        //     body: JSON.stringify({
-                        //     orderID: data.orderID
-                        //     })
-                        // });
-                    }
-                    }
-                />
-                <Button variant="secondary" style={{ background: "#e44d3a" }} onClick={handleClose}>
-                    Close
-          </Button>
-            </Modal.Footer>
-        </Modal>
     </>
 }
 
-export default Event;
+export default Events;

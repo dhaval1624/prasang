@@ -13,12 +13,14 @@
     position: fixed;
     top: 10%;
     left: 10%;
+    height: 52px !important; /* Changes */
 }
 .post {
     float: left;
     width: 100%;
     position: relative;
     background-color: #fff;
+    height: 530px !important; /* Changes */
 }
 .close {
     position: absolute;
@@ -134,7 +136,8 @@
     /* top: 95%;
     position: absolute; */
     height: 10%;
-    width: 93%;
+    margin-top: -90px; /* Changes */
+    width: 100%;
     /* border-top: 0.5px solid #bcbcbc; */
     float: left;
     padding: 6px 0px 5px 0px;

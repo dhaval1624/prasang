@@ -43,6 +43,7 @@ const Routes = (props: any) => {
                         goToHome={() => props.history.replace("/")}
                     >
                         <Route path="/u/home" exact component={Home} />
+                        <Route path="/u/event/" exact component={Event} />
                         <Route path="/u/profile" exact component={Profile} />
                         <Route
                             path="/u/changepassword"
@@ -57,7 +58,7 @@ const Routes = (props: any) => {
                             path="/u/myevent"
                             exact
                             render={(props) => (
-                                <MyEvent {...props} type="changepassword" />
+                                <MyEvent {...props} type="event" />
                             )}
                         />
                         <Route

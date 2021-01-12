@@ -35,7 +35,7 @@ const Password = (props:any) => {
     </Toast>
     const render = <ChangePassword changePassword={changePassword} err = { errors } errs= { errors }/>;
     // if(props.type == "event") {
-    //     // render = <MyEvent />        
+        // render = <MyEvent />        
     // } 
     return (<>
         {noti}
