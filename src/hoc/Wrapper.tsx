@@ -1,40 +1,41 @@
-import { useEffect } from 'react'
-import { useLazyQuery } from '@apollo/client';
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from "react";
+import { useLazyQuery } from "@apollo/client";
+// import { Mutation, Query } from "@apollo/react-components";
+import { useDispatch, useSelector } from "react-redux";
 
-import { checkAutoAuth } from '../store/actions/AuthActions'
-import { userProfile } from '../utils/GqlQueries'
-import AuthSlice from '../store/slices/AuthSlice';
+import { checkAutoAuth } from "../store/actions/AuthActions";
+import { userProfile } from "../utils/GqlQueries";
+import AuthSlice from "../store/slices/AuthSlice";
 import { store } from "../store/storeTypes";
 
 interface WrapperProp {
-    children: any
-    goToLogin: () => void
-    goToHome: () => void
+    children: any;
+    goToLogin: () => void;
+    goToHome: () => void;
 }
 
 const Wrapper = (props: WrapperProp) => {
-    const [ getUser, { data, loading, error } ] = useLazyQuery(userProfile);
+    const [getUser, { data, loading, error }] = useLazyQuery(userProfile);
     const { goToHome, goToLogin } = props;
     const dispatch = useDispatch();
     const { login } = AuthSlice.actions;
-    let storeToken = useSelector( (state:store) => state.auth.token);
+    let storeToken = useSelector((state: store) => state.auth.token);
 
-    useEffect(()=> {
+    useEffect(() => {
         try {
-            if(!storeToken) {
+            if (!storeToken) {
                 let token = checkAutoAuth();
                 getUser();
-                if(!loading && data) 
-                {
+                if (!loading && data) {
                     dispatch(
                         login({
                             token: token,
-                            user: data.usersProfile
+                            user: data.usersProfile,
                         })
-                    )
-                } else if(error) {
-                    if(error.networkError){
+                    );
+                } else if (error) {
+                    console.log(error);
+                    if (error.networkError) {
                         goToHome();
                         console.log("goes to network");
                     } else {
@@ -47,9 +48,19 @@ const Wrapper = (props: WrapperProp) => {
             console.log("token not found error");
             goToLogin();
         }
-    }, [ getUser, dispatch, goToLogin, goToHome, login, loading, data, error, storeToken ])
+    }, [
+        getUser,
+        dispatch,
+        goToLogin,
+        goToHome,
+        login,
+        loading,
+        data,
+        error,
+        storeToken,
+    ]);
 
-    return props.children
-}
+    return props.children;
+};
 
 export default Wrapper;
