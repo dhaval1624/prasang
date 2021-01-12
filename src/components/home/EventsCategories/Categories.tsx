@@ -1,16 +1,16 @@
-import React from 'react'
+import React from "react";
 import { faEquals, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import commonClasses from '../common.module.css'
-import classes from './Categories.module.css'
+import commonClasses from "../common.module.css";
+import classes from "./Categories.module.css";
 
 const Categories = () => {
     return (
         <div className={commonClasses.wrapper}>
             <div className={commonClasses.heading}>
                 <FontAwesomeIcon icon={faEquals} size="1x" />
-                <h3>Popular Event categories</h3>
+                <h3>Popular Categories</h3>
             </div>
 
             <div className={commonClasses.list}>
@@ -22,7 +22,7 @@ const Categories = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Categories
+export default Categories;

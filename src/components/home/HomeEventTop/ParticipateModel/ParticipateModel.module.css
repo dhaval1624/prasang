@@ -1,0 +1,36 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0000007a;
+}
+.modal {
+    width: 50%;
+    margin: 10% auto;
+    /* position: fixed;
+    top: 10%;
+    left: 10%; */
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+.header svg:hover {
+    cursor: pointer;
+}
+.post {
+    float: left;
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    border: 0;
+    border-radius: 0.25rem;
+}
+.actions {
+    width: 100%;
+    margin: 4px;
+    text-align: center;
+}

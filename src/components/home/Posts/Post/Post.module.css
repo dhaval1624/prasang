@@ -1,0 +1,103 @@
+.postBar {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+    border-left: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 20px;
+    padding: 10px 0px 0px 0px;
+    box-shadow: 0 2px #e4e4e4;
+    border: 1px solid #d5d0d0;
+}
+.postTopBar {
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 0px 0px 5px 0px;
+    border-bottom: 0.5px solid #bcbcbc;
+}
+.postTopbarUser {
+    float: left;
+}
+.postTopbarUser img {
+    border-radius: 100px;
+    margin-top: 2px;
+}
+.userName {
+    float: left;
+    margin-left: 15px;
+}
+.userName h3 {
+    color: #000;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-top: 2px;
+}
+.userName span {
+    color: #b2b2b2;
+    font-size: 14px;
+}
+
+.jobStatusBar {
+    border-top: 1px solid #e5e5e5;
+}
+.likeCom {
+    float: left;
+    margin: 5px 5px 10px 5px;
+    list-style: none;
+}
+.likeCom li {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 20px;
+}
+.likeCom li:hover {
+    cursor: pointer;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    border: 0.5px solid #bcbcbc;
+}
+
+.postComment {
+    float: left;
+    width: 100%;
+}
+.cmImage {
+    float: left;
+    width: 40px;
+    margin-right: 10px;
+}
+.cmBox {
+    float: none;
+}
+.cmInput {
+    width: 372px;
+    height: 40px;
+    border: 1px solid #bfbfbf;
+    background-color: #efefef;
+    padding-left: 10px;
+    color: #b2b2b2;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 40px;
+    resize: none;
+}
+.cmButton {
+    float: right;
+    color: #fff;
+    background-color: #e44d3a;
+    height: 40px;
+    padding: 0 10px;
+    text-align: center;
+    font-size: 14px;
+    border: 0;
+    /* margin-left: 10px; */
+    cursor: pointer;
+    font-weight: 600;
+}

@@ -85,21 +85,23 @@ const Event = (props:any) => {
             const response=await eventspart({variables:{eventId: eventId}});
             setShow(true);
         }catch(error){
+            console.log(error);
             setparticipantError(error.message);
         }
     }
     const paymentSuccess = async () => {
-        setShow(false);
         try{
+            console.log("Called" + amtParticipant.eventId);
             const response = await myParticipant({variables:{eventId: amtParticipant.eventId}});
             dispatch(
                 participationActions.participant({
                     Participation:response.data
                 })
-            )
+                )
+                setShow(false);
         }catch(error){
             // setparticipantError(error.message);
-            // console.log(error.message)
+            console.log(error.message)
         }
     }
     let er1 : any = "";
@@ -152,18 +154,18 @@ const Event = (props:any) => {
 
                                 </tr>
                             </td>
-
                         </tr>
 
                     </tbody>
                 </Table>
             </Modal.Body>
             <Modal.Footer>
-                <PayPalButton
+                {(amtParticipant.amt1 == "0" ) ? <Button variant="primary" style={{ background: "#e44d3a" }} onClick={()=>paymentSuccess()}>Pay Amount</Button>
+                : <PayPalButton
                     amount={amtParticipant.amt1}
                     onSuccess={(details: any, data: any) => {
-                        alert("Transaction completed by " + details.payer.name.given_name);
                         paymentSuccess();
+                        alert("Transaction completed by " + details.payer.name.given_name);
                         // return props.amt(id);
                         // OPTIONAL: Call your server to save the transaction
                         // return fetch("/paypal-transaction-complete", {
@@ -174,10 +176,10 @@ const Event = (props:any) => {
                         // });
                     }
                     }
-                />
+                />}
                 <Button variant="secondary" style={{ background: "#e44d3a" }} onClick={handleClose}>
                     Close
-          </Button>
+                </Button>
             </Modal.Footer>
         </Modal>
     </>

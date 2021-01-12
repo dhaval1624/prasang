@@ -27,7 +27,6 @@ const MyPhotos = (props:any) => {
     let loader : any = "";
     if(!loading && photoData)
     {
-        console.log(photoData);
         loader = <MyAllPhotos photo = {photoData}/>;
     }
     return <> 

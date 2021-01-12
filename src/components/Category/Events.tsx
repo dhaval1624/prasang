@@ -101,22 +101,25 @@ const Events = (props: any) => {
                             <div className="job_descp" style={{ paddingTop: "20px" }}>
                                 <p>{event[0][i].description}</p>
                             </div>
-                            {(moment(+event[0][i].startDate).isAfter(moment())) ?
+                            {/* {event[0][i].fees != 0 ? */}
                                 <div className="job-status-bar">
                                     <ul className="like-com">
                                         <li>Fees: {event[0][i].fees} </li>
                                         {/* <li style={{ marginLeft: "358px" }}> */}
                                         {/* </li> */}
+                                        
+                                        {(moment(+event[0][i].lastRegistraionDate)).isAfter(moment()) ?
                                         <li><Button style={{ marginLeft: "358px" }} onClick={() => paymentHandler(event[0][i].eventId, event[0][i].title, event[0][i].fees)} variant={"primary"}>Participate Event</Button> </li>
+                                        :""}
                                         {/* <li><a href="#" className="com"><i className="fas fa-comment-alt" /> Participate Event</a></li> */}
                                     </ul>
-                                </div> : ""}
-                            {(event[0][i].eventId == id) ?
+                                </div> 
+                            {/* {(event[0][i].eventId == id) ?
                                 (errorParticipant != null || "") ?
                                     (errorParticipant == "Registration closed for event!") ?
                                         <span style={{ color: "red" }}> {errorParticipant} </span> :
                                         <span style={{ color: "green" }}> {errorParticipant} </span>
-                                    : "" : ""}
+                                    : "" : ""} */}
                         </div>
                     </div>
                 )
@@ -136,7 +139,8 @@ const Events = (props: any) => {
         <div className="main-section-data">
             <div className="row">
                 <div className="col-lg-3 col-md-4 pd-left-none no-pd">
-                    <div className="main-left-sidebar no-margin">
+                    {/* style={{position: "sticky top 0px"}} */}
+                    <div className="main-left-sidebar no-margin" style={{position:"sticky",top:"0px"}}>
 
                         <div className="filter-secs" style={{ padding: "10px", boxShadow: "8px 7px 10px #888888" }}>
                             <div className="filter-heading" style={{ marginBottom: "0px", backgroundColor: "#e44d3a", color: "white", textTransform: "uppercase" }}>
@@ -195,7 +199,7 @@ const Events = (props: any) => {
                     </div>
                 </div>
                 <div className="col-lg-3 pd-right-none no-pd">
-                    <div className="main-left-sidebar no-margin">
+                    <div className="main-left-sidebar no-margin" style={{position:"sticky",top:"0px"}}>
 
                         <div className="filter-secs" style={{ padding: "10px", boxShadow: "8px 7px 10px #888888", marginBottom: "25px" }}>
                             <div className="filter-heading" style={{ marginBottom: "0px", backgroundColor: "#e44d3a", color: "white", textTransform: "uppercase" }}>
