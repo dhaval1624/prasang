@@ -21,6 +21,7 @@ interface eventQueryVars {
     status: EventStatusEnum;
     categoryId?: string;
     paid?: boolean;
+    limit?: number;
 }
 
 const renderEvents = (events: [event]) => {
@@ -78,6 +79,7 @@ const Events = () => {
         {
             variables: {
                 status: EventStatusEnum.Ongoing,
+                limit: 7,
             },
         }
     );

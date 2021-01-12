@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import { Spinner } from "react-bootstrap";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { Alert, Spinner } from "react-bootstrap";
 
 import { postt } from "../../../store/storeTypes";
 import { homeFeed, likePhoto } from "../../../utils/GqlQueries";
@@ -8,6 +8,7 @@ import Post from "./Post/Post";
 // import { ppost } from "./PostsTypes";
 import PostView from "./PostView/PostView";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
+import ContentLoader from "./ContentLoader";
 
 interface postsResult {
     feed: [postt];
@@ -34,24 +35,21 @@ const Posts = () => {
     const [viewPost, setViewPost] = useState(false);
     const [likePhotoCall] = useMutation<number>(likePhoto);
     const [posts, setPosts] = useState<[postt]>();
+    const [fetchMore, setFetchMore] = useState(true);
 
     const callback = async () => {
-        console.log("scrolled to bottom");
-        if (!loading) {
-            console.log("bottom refetched");
+        if (!loading && fetchMore) {
             refetch();
-            // updateFeedState();
+            updateFeedState();
         }
     };
 
-    useBottomScrollListener(callback, {
-        offset: 50,
-    });
+    useBottomScrollListener(callback);
 
-    console.log(error, loading, data);
+    // console.log(error?.message, loading, data, posts, fetchMore);
 
-    const updateFeedState = useCallback(() => {
-        if (data && !loading && !error) {
+    const updateFeedState = async () => {
+        if (data) {
             if (posts && posts?.length > 0) {
                 let newPosts: any = [...posts];
                 newPosts = newPosts.concat([...data.feed]);
@@ -60,14 +58,15 @@ const Posts = () => {
                 setPosts(data.feed);
             }
         }
-    }, []);
+    };
 
     useEffect(() => {
-        if (!loading && !error && data) {
+        if (!loading && !error && data && !posts) {
             updateFeedState();
-            console.log("useeffect called");
+        } else if (!loading && error && fetchMore) {
+            setFetchMore(false);
         }
-    }, [updateFeedState, loading, error, data]);
+    }, [updateFeedState, loading, error, data, setFetchMore, fetchMore]);
 
     const onPostSelect = (post: postt) => {
         setSelectedPost(post);
@@ -98,10 +97,16 @@ const Posts = () => {
     }
 
     let content: any = <Spinner animation="border" />;
-    if (!loading && posts) {
+    if (!loading && posts && !error) {
         content = renderPosts(posts, onPostSelect, likePhotoHandler);
     } else {
-        content = error ? error : "";
+        content = error ? (
+            <Alert variant="primary" style={{ maxHeight: "150px" }}>
+                No more photos left for feed! Please Try again later.
+            </Alert>
+        ) : (
+            ""
+        );
     }
 
     return (
@@ -111,13 +116,7 @@ const Posts = () => {
                 {content}
 
                 {/* Loading */}
-                <div className="process-comm">
-                    <div className="spinner">
-                        <div className="bounce1" />
-                        <div className="bounce2" />
-                        <div className="bounce3" />
-                    </div>
-                </div>
+                {fetchMore && <ContentLoader />}
             </div>
         </>
     );

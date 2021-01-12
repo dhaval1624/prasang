@@ -34,61 +34,9 @@ const Home = () => {
                                             <UserCard user={user} />
 
                                             {/* Categories */}
-                                            <Categories />
+                                            {/* <Categories /> */}
 
                                             {/* Links */}
-                                            {/* <div className="tags-sec full-width">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">
-                                                            Help Center
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">About</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            Privacy Policy
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            Community Guidelines
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            Cookies Policy
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Career</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Language</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            Copyright Policy
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                                <div className="cp-sec">
-                                                    <img
-                                                        src="images/logo2.png"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        <img
-                                                            src="images/cp.png"
-                                                            alt=""
-                                                        />
-                                                        Copyright 2019
-                                                    </p>
-                                                </div>
-                                            </div>
-                                         */}
                                         </div>
                                     </div>
 
@@ -107,7 +55,7 @@ const Home = () => {
                                                 top: 0,
                                             }}
                                         >
-                                            <div className="widget widget-about">
+                                            {/* <div className="widget widget-about">
                                                 <img
                                                     src="images/wd-logo.png"
                                                     alt=""
@@ -123,12 +71,11 @@ const Home = () => {
                                                             Sign up
                                                         </a>
                                                     </h3>
-                                                    {/* <a href="#">Learn More</a> */}
                                                 </div>
-                                            </div>
+                                            </div> */}
 
                                             <TrandingEvents />
-                                            <Peoples />
+                                            {/* <Peoples /> */}
                                         </div>
                                     </div>
                                 </div>

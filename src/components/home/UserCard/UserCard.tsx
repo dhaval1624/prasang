@@ -1,6 +1,7 @@
 import React from "react";
 import commonClasses from "../common.module.css";
 import { user } from "../../../store/storeTypes";
+import { Link } from "react-router-dom";
 
 interface UserCardProps {
     user: user | undefined;
@@ -63,9 +64,16 @@ const UserCard = (props: UserCardProps) => {
                     </span>
                 </li>
                 <li>
-                    <a href="https://www.gambolthemes.net/workwise-new/my-profile.html">
+                    <Link
+                        to={"/u/profile"}
+                        style={{
+                            color: "#e44d3a",
+                            fontSize: "14px",
+                            fontWeight: 600,
+                        }}
+                    >
                         View Profile
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </div>
