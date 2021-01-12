@@ -83,9 +83,19 @@ export const userProfile = gql`
     }
 `;
 export const homePageEvents = gql`
-    query getEvents($status: EventStatus, $categoryId: ID, $paid: Boolean) {
+    query getEvents(
+        $status: EventStatus
+        $categoryId: ID
+        $paid: Boolean
+        $limit: Int
+    ) {
         events(
-            where: { status: $status, categoryId: $categoryId, paid: $paid }
+            where: {
+                status: $status
+                categoryId: $categoryId
+                paid: $paid
+                limit: $limit
+            }
         ) {
             eventId
             title
@@ -195,6 +205,12 @@ export const editProfile = gql`
             IsEnable
             createdAt
             image
+            participations {
+                participationId
+            }
+            photos {
+                photoId
+            }
         }
     }
 `;
