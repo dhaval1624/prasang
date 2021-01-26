@@ -80,7 +80,9 @@ const ChangePassword = (props: any) => {
         <ProfileProps type="changepassword">
 
             <div className="acc-setting">
-                <h3>Change Password</h3>
+                <div className="acc-setting" style={{ marginBottom: "0px", backgroundColor: "#e44d3a", color: "white", textTransform: "uppercase" }}>
+                    <h3 style={{ color: "white" }}>Change Password</h3>
+                </div>
                 <Form>
                     {/* <div className="cp-field">
             <h5>Old Password</h5>

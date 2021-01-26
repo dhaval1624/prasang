@@ -13,6 +13,7 @@ export const Login_User = gql`
                 IsEnable
                 createdAt
                 image
+                bio
                 participations {
                     participationId
                 }
@@ -59,6 +60,7 @@ export const Register_User = gql`
             name
             email
             username
+            bio
         }
     }
 `;
@@ -72,6 +74,7 @@ export const userProfile = gql`
             contactNo
             IsEnable
             createdAt
+            bio
             image
             participations {
                 participationId
@@ -186,6 +189,7 @@ export const editProfile = gql`
         $username: String
         $contactNo: String
         $image: Upload
+        $bio: String
     ) {
         editProfile(
             data: {
@@ -195,6 +199,7 @@ export const editProfile = gql`
                 username: $username
                 contactNo: $contactNo
                 image: $image
+                bio: $bio
             }
         ) {
             username
@@ -205,6 +210,7 @@ export const editProfile = gql`
             IsEnable
             createdAt
             image
+            bio
             participations {
                 participationId
             }

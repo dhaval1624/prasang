@@ -154,23 +154,7 @@ const Events = (props: any) => {
                             </ul>
                         </div>
                         <br></br>
-                        {/* <Categories /> */}
-                        <div className="tags-sec full-width" style={{ marginTop: "47px" }}>
-                            <ul>
-                                <li><a href="#">Help Center</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Community Guidelines</a></li>
-                                <li><a href="#">Cookies Policy</a></li>
-                                <li><a href="#">Career</a></li>
-                                <li><a href="#">Language</a></li>
-                                <li><a href="#">Copyright Policy</a></li>
-                            </ul>
-                            <div className="cp-sec">
-                                <img src="images/logo2.png" alt="" />
-                                <p><img src="images/cp.png" alt="" />Copyright 2019</p>
-                            </div>
-                        </div>
+                        
                     </div>
 
                 </div>
@@ -216,7 +200,7 @@ const Events = (props: any) => {
                         {/* <Categories /> */}
                         <div style={{ marginTop: "50px", boxShadow: "8px 7px 10px #888888" }}>
                             <TrandingEvents />
-                            <Peoples />
+                            
                         </div>
                     </div>
 

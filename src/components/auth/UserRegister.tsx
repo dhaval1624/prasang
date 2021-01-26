@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import AuthCommon from "./AuthCommon";
@@ -21,13 +21,54 @@ const UserRegister = (props: any) => {
         passwordError: '',
         nameError: '',
         emailError: '',
-        IsValid: true
+        IsValid: true,
+        IsValid2: true
     })
+
+    useEffect(() => {
+        if(props.errormsgs){
+            console.log(props.errormsgs);
+        }
+    }, [props.errormsgs])
+
+    // useEffect(()=>{
+    //     async function myCall(){
+    //         if (props.errormsgs) {
+    //             if (props.errormsgs === 'Username Exists Please Select Unique') {
+    //                 await setError({
+    //                     ...error,
+    //                     usernameError: 'Username already exists',
+    //                     IsValid2: false,
+    //                     IsValid:true
+    //                 })
+    //             }
+    //             if (props.errormsgs === 'Email Exists Please Select Unique') {
+    //                 await setError({
+    //                     ...error,
+    //                     emailError: 'Email already exists',
+    //                     IsValid2: false,
+    //                     IsValid:true
+    //                 })
+    //             }
+    //             if (props.errormsgs === 'Password Must be 8') {
+    //                 await setError({
+    //                     ...error,
+    //                     passwordError: props.errormsgs,
+    //                     IsValid2: false,
+    //                     IsValid:true
+    //                 })
+    //             }
+    //         }
+    //     } 
+    //     myCall()   
+    // },[props.errormsgs,error.IsValid,error.IsValid2])
+
     const onFinish = async (values: any) => {
         let registerData = { ...auth };
-        let errors = { ...error, IsValid: false };
+        let errors = { ...error, IsValid: false};
         if (!registerData.name || registerData.name === "") {
             errors.nameError = "Name Is Required "
+            errors.IsValid = false;
         }
         else {
             errors.IsValid = true;
@@ -35,6 +76,7 @@ const UserRegister = (props: any) => {
         }
         if (!registerData.username || registerData.username === "") {
             errors.usernameError = "Username Is Required "
+            errors.IsValid = false;
         }
         else {
             errors.IsValid = true;
@@ -43,37 +85,31 @@ const UserRegister = (props: any) => {
 
         if (!registerData.email || registerData.email === "") {
             errors.emailError = "Email ID Is Required "
+            errors.IsValid = false;
         }
         else {
             errors.IsValid = true;
             errors.emailError = "";
         }
-        // console.log(registerData.password);
-        // console.log(registerData.password.length);
-        if(registerData.password)
-        {
+        
+        
+        if (!registerData.password || registerData.password === "") {
+            errors.passwordError = "Password Is Required"
+            errors.IsValid = false;
+        }
+        else {
             if (registerData.password.length < 8) {
-                console.log(registerData.password);
-                errors.passwordError = "password Must be 8";
+                errors.passwordError = "Password Must be 8";
+                errors.IsValid = false;
             }
             else{
-                console.log(registerData.password);
                 errors.passwordError = "";
                 errors.IsValid = true;
             }
         }
-        
-        if (!registerData.password || registerData.password === "") {
-            errors.passwordError = "password Is Required "
-        }
-        else {
-            errors.IsValid = true;
-            errors.passwordError = "";
-        }
 
         setError(errors);
-        // console.log(profileData);    
-        if (errors.IsValid) {
+        if (errors.IsValid && errors.IsValid2) {
             await props.userRegisters(
                 registerData.name,
                 registerData.email,
@@ -81,7 +117,6 @@ const UserRegister = (props: any) => {
                 registerData.username
             );
         }
-
     };
     return (
         <AuthCommon type="register">

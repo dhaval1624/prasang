@@ -14,9 +14,9 @@ import AuthSlice from "../store/slices/AuthSlice";
 
 const Auth = (props: any) => {
     const [login] = useMutation(Login_User);
-    const [register] = useMutation(Register_User);
+    const [register,{error}] = useMutation(Register_User);
     const [err, setErr] = useState(false);
-
+    const [errs, setErrs] = useState("");
     const dispatch = useDispatch();
     const authActions = AuthSlice.actions;
 
@@ -45,6 +45,7 @@ const Auth = (props: any) => {
         username: string
     ) => {
         try {
+            console.log(errs);
             await register({
                 variables: {
                     name: name,
@@ -55,6 +56,7 @@ const Auth = (props: any) => {
             });
             props.history.push("/login");
         } catch (error) {
+            await setErrs(error.message);
             console.log(error.message);
         }
     };
@@ -71,13 +73,13 @@ const Auth = (props: any) => {
             removeToken(token);
             props.history.push("/login");
         } catch (error) {
-            console.log(error.message);
+            // console.log(error.message);
         }
     }
-
+    console.log(error?.message);
     let render = <Login userAdmin={userAdmin} errormsg={err} />;
     if (props.type === "register") {
-        render = <Register userRegisters={userRegisters} errormsg={""} />;
+        render = <Register userRegisters={userRegisters} errormsgs={error?.message} />;
     }
     return render;
 };

@@ -16,7 +16,8 @@ const MyAllPhotos = (props: any) => {
             </div></div>
         </div>)
         }
-        else {
+        else
+         {
             // if()
             
             for (let i = 0; i < photo[0].length; i++) {
@@ -86,7 +87,9 @@ const MyAllPhotos = (props: any) => {
         <ProfileProps type="myphotos">
             <div className="acc-setting">
                 <div className="acc-setting">
-                    <h3>My Photo</h3>
+                    <div className="acc-setting" style={{ marginBottom: "0px", backgroundColor: "#e44d3a", color: "white", textTransform: "uppercase" }}>
+                        <h3 style={{ color: "white" }}>My Photo</h3>
+                    </div>
                     <div className="companies-list">
                         <div className="row">
                             {photos(props.photo)}

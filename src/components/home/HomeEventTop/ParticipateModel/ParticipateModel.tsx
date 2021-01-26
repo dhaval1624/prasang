@@ -33,7 +33,7 @@ const ParticipateModel = (props: ParticipateModelProps) => {
     const [eventId, setEventId] = useState<string>();
     const [photo, setPhoto] = useState<any>();
     const [error, setError] = useState("");
-
+    console.log(participantError);
     const [
         uploadPhoto,
         { data: photoData, error: photoError, loading: photoLoading },
@@ -65,7 +65,9 @@ const ParticipateModel = (props: ParticipateModelProps) => {
         } else {
             setError("Please select event and photo to post.");
         }
-        // props.close();
+        setTimeout( () => {
+            props.close();
+        }, 1000);
     };
     const imageChangeHandler = (e: any) => {
         const {

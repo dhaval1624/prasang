@@ -87,6 +87,7 @@ const Event = (props:any) => {
         }catch(error){
             console.log(error);
             setparticipantError(error.message);
+            alert(error.message)
         }
     }
     const paymentSuccess = async () => {
@@ -109,10 +110,10 @@ const Event = (props:any) => {
         console.log("");
     }   
     else if(eventsError){
-        er1 = <Alert key="Alert" variant="danger">
-            {eventsError.message}
-        </Alert>
-        console.log(eventsError.message);
+        // er1 = <Alert key="Alert" variant="danger">
+        //     {eventsError.message}
+        // </Alert>
+        // er1 = alert(eventsError.message);
     }
     else if(!eventsError){
         er1 = "";

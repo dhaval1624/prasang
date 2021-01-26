@@ -18,20 +18,21 @@ const Profile = (props: any) => {
     const userData = useSelector((state:store)=>state.auth.user);
     const [show, setShow] = useState(false);
     const [pr,setPR] = useState(false);
-    const userEditProfile = async (name:string,email : string, password : string,username:string,contactNo:string,image:any|string) => {
+    const userEditProfile = async (name:string,email : string, password : string,username:string,contactNo:string,image:any|string,bio:String) => {
         // setProfileError("");
+        console.log(bio);
         try {
             let response : any = "";
             if(typeof image === 'string')
             {
                 if(image.includes("http"))
                 {
-                    response = await profile({variables:{name:name,email: email,password:password,username:username,contactNo:contactNo}});
+                    response = await profile({variables:{name:name,email: email,password:password,username:username,contactNo:contactNo,bio:bio}});
                 }
             }    
             else
             {
-                response = await profile({variables:{name:name,email: email,password:password,username:username,contactNo:contactNo,image:image}});
+                response = await profile({variables:{name:name,email: email,password:password,username:username,contactNo:contactNo,image:image,bio:bio}});
             }
             setProfileError("");
             

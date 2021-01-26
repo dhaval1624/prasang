@@ -33,13 +33,15 @@ const myEvents = (participant:any) => {
     return myArr;
 }
 const MyAllEvent = (props: any) => {
-    console.log("Called My ALL")
+    
     return <>
         <ProfileProps type="event">
-            <div className="acc-setting">
+            <div>
                 <Form>
                     <div className="acc-setting">
-                        <h3>My Event</h3>
+                        <div className="acc-setting" style={{ marginBottom: "0px", backgroundColor: "#e44d3a", color: "white", textTransform: "uppercase" }}>
+                            <h3 style={{ color: "white" }}>My Event</h3>
+                        </div>
                         {myEvents(props.participant)}
                     </div>
                 </Form>

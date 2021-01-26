@@ -11,6 +11,8 @@ import Category from "./containers/Category";
 import Event from "./containers/Event";
 import MyEvent from "./containers/MyEvent";
 import MyPhoto from "./containers/MyPhotos";
+import AboutUs from "./components/profile/AboutUs";
+import ContactUs from "./components/profile/ContactUs";
 const Routes = (props: any) => {
     let routes = (
         <Switch>
@@ -66,6 +68,20 @@ const Routes = (props: any) => {
                             exact
                             render={(props) => (
                                 <MyPhoto {...props} type="myphotos" />
+                            )}
+                        />
+                        <Route
+                            path="/u/aboutus"
+                            exact
+                            render={(props) => (
+                                <AboutUs {...props} type="about" />
+                            )}
+                        />
+                        <Route
+                            path="/u/contactus"
+                            exact
+                            render={(props) => (
+                                <ContactUs {...props} type="contact" />
                             )}
                         />
 

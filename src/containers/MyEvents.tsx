@@ -14,7 +14,6 @@ const MyEvents = (props:any) => {
     const participantData = useSelector((state:store)=>state.participation.myParticipationList);
     
     useEffect(()=> {
-        console.log(data)
         try {
             refetch()
             dispatch(

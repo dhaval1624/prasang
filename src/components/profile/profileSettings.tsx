@@ -19,8 +19,8 @@ const ProfileSetting = (props: ProfileProps) => {
                                 <Link to={"/u/changepassword"} className={props.type === "changepassword" ? "nav-item nav-link Active" : "Actives"} id="nav-acc-tab"  style={{color: "black"}}><i className="la la-cogs" />Change Password</Link>
                                 <Link to={"/u/myevent"} className={props.type === "event" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />My Events</Link>
                                 <Link to={"/u/myphoto"} className={props.type === "myphotos" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />My Photo</Link>
-                                <Link to={"/u/about"} className={props.type === "about" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />About Us</Link>
-                                <Link to={"/u/contact"} className={props.type === "contact" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />Contact Us</Link>
+                                <Link to={"/u/aboutus"} className={props.type === "about" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />About Us</Link>
+                                <Link to={"/u/contactus"} className={props.type === "contact" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />Contact Us</Link>
                                 <Link to={"/logout"} className={props.type === "logout" ? "nav-item nav-link Active" : "Actives"} style={{color: "black"}}><i className="la la-cogs" />Logout</Link>
                         </div>
                     </div>

@@ -115,7 +115,7 @@ const EditProfile = (props: any) => {
     // console.log(profileData);    
     if (errors.IsValid) {
       console.log('success');
-      await props.userEdit(profileData.name, profileData.email, profileData.password, profileData.username, profileData.contact, profileData.image)
+      await props.userEdit(profileData.name, profileData.email, profileData.password, profileData.username, profileData.contact, profileData.image,profileData.bio)
     }
   };
   return (
